@@ -1,4 +1,4 @@
-package com.school.academic.mapper.lesson;
+package com.school.academic.mapper;
 
 import com.school.academic.domain.Lesson;
 import com.school.academic.dto.lesson.LessonCreateDTO;

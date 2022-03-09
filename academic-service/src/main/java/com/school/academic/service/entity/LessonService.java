@@ -3,7 +3,7 @@ package com.school.academic.service.entity;
 import com.school.academic.domain.Lesson;
 import com.school.academic.dto.lesson.LessonCreateDTO;
 import com.school.academic.dto.lesson.LessonDTO;
-import com.school.academic.mapper.lesson.LessonMapper;
+import com.school.academic.mapper.LessonMapper;
 import com.school.academic.repository.LessonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

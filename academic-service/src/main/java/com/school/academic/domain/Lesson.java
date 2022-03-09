@@ -13,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
 public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +22,9 @@ public class Lesson {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "lesson")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "lesson")
     @ToString.Exclude
-    private Set<Unit> units = new LinkedHashSet<>();
+    private Set<Unit> units;
 
     @Override
     public boolean equals(Object o) {

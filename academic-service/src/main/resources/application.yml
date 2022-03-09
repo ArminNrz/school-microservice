@@ -1,3 +1,27 @@
 server:
   port: 8080
 
+
+spring:
+  web:
+    resources:
+      add-mappings: false
+  datasource:
+    url: jdbc:mysql://${ACADEMIC_DB_HOST}:${ACADEMIC_DB_PORT}/${ACADEMIC_DB}?createDatabaseIfNotExist=true
+    username: ${ACADEMIC_DB_USER}
+    password: ${ACADEMIC_DB_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: false
+  application:
+    name: academic-service
+
+logging:
+  level:
+    com:
+      school:
+        academic: debug

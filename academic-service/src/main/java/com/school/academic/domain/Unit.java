@@ -14,7 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "unit", indexes = {
         @Index(name = "lesson_id_idx", columnList = "lesson_id"),
-        @Index(name = "teacher_id_idx", columnList = "teacher_id")
+        @Index(name = "teacher_id_idx", columnList = "teacher_id"),
+        @Index(name = "teacher_lesson_idx", columnList = "teacher_id, lesson_id")
 })
 @Getter
 @Setter
@@ -29,7 +30,7 @@ public class Unit {
     @Column(name = "point", nullable = false)
     private BigDecimal point;
 
-    @Column(name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
     @Column(name = "lesson_id", insertable = false, updatable = false)
@@ -49,6 +50,7 @@ public class Unit {
     private Teacher teacher;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "unit")
+    @ToString.Exclude
     private Set<UnitStudent> unitStudents;
 
     @Override
