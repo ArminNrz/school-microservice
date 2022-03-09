@@ -41,4 +41,10 @@ public class TeacherController {
         UnitDTO result = unitService.register(teacherId, registrationDTO);
         return ResponseEntity.ok(result);
     }
+
+    //todo: get unit of a teacher
+
+    //todo: get unit of a lesson
+
+    //todo: get all units with page and size
 }
