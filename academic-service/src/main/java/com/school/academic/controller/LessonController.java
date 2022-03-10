@@ -34,5 +34,5 @@ public class LessonController {
         return ResponseEntity.ok(results);
     }
 
-    //todo: get unit of a lesson
+    //todo: get unit of a lesson GET: /{lessonId}
 }
