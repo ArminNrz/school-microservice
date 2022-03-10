@@ -10,6 +10,8 @@
     <modules>
         <module>academic-service</module>
         <module>base-common-layer</module>
+        <module>finance-service</module>
+        <module>clients</module>
     </modules>
     <name>school-microservice</name>
 

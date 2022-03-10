@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+spring:
+  web:
+    resources:
+      add-mappings: false
+  application:
+    name: finance-service
+  data:
+    mongodb:
+      host: 172.21.0.3
+      port: 27017
+      database: finance
+      username: admin
+      password: admin
+
+logging:
+  level:
+    com:
+      school:
+        finance: debug
+
+finance:
+  point-cost: 1000
