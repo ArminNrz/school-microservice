@@ -41,7 +41,7 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
-    //todo: get student by id (id, name, family, List<unit = teacherName - lessonName - point>, pointSum)
+    //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
 
-    //todo: end getting unit
+    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) /{id}/end-register
 }
