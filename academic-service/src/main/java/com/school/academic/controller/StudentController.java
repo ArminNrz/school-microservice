@@ -69,5 +69,5 @@ public class StudentController {
      */
 
 
-    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) /{id}/end-register
+    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
 }
