@@ -9,11 +9,11 @@ spring:
     name: finance-service
   data:
     mongodb:
-      host: 172.21.0.3
-      port: 27017
-      database: finance
-      username: admin
-      password: admin
+      host: ${FINANCE_DB_HOST}
+      port: ${FINANCE_DB_PORT}
+      database: ${FINANCE_DB}
+      username: ${FINANCE_DB_USER}
+      password: ${FINANCE_DB_PASS}
 
 logging:
   level:
