@@ -3,14 +3,14 @@ package com.school.academic.mapper;
 import com.school.academic.domain.Lesson;
 import com.school.academic.domain.Teacher;
 import com.school.academic.domain.Unit;
-import com.school.academic.dto.unit.UnitDTO;
-import com.school.academic.dto.unit.UnitRegistrationDTO;
+import com.school.academic.dto.unit.teacher.UnitTeacherDTO;
+import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UnitMapper {
 
-    public Unit toEntity(UnitRegistrationDTO dto) {
+    public Unit toEntity(UnitTeacherRegistrationDTO dto) {
         Unit entity = new Unit();
 
         Lesson lesson = new Lesson();
@@ -29,8 +29,8 @@ public class UnitMapper {
         return entity;
     }
 
-    public UnitDTO toDTO(Unit entity) {
-        UnitDTO dto = new UnitDTO();
+    public UnitTeacherDTO toDTO(Unit entity) {
+        UnitTeacherDTO dto = new UnitTeacherDTO();
         dto.setId(entity.getId());
         dto.setTeacherId(entity.getTeacherId());
         dto.setLessonId(entity.getLessonId());

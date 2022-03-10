@@ -1,4 +1,4 @@
-package com.school.academic.dto.unit;
+package com.school.academic.dto.unit.teacher;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class UnitBaseDTO implements Serializable {
+public class UnitTeacherBaseDTO implements Serializable {
 
     @NotNull
     private Long lessonId;

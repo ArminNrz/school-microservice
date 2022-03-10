@@ -33,4 +33,6 @@ public class LessonController {
         List<LessonDTO> results = service.getAll(page, size);
         return ResponseEntity.ok(results);
     }
+
+    //todo: get unit of a lesson
 }

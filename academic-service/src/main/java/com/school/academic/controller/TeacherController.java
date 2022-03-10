@@ -2,8 +2,8 @@ package com.school.academic.controller;
 
 import com.school.academic.dto.teacher.TeacherCreateDTO;
 import com.school.academic.dto.teacher.TeacherDTO;
-import com.school.academic.dto.unit.UnitDTO;
-import com.school.academic.dto.unit.UnitRegistrationDTO;
+import com.school.academic.dto.unit.teacher.UnitTeacherDTO;
+import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.service.entity.TeacherService;
 import com.school.academic.service.entity.UnitService;
 import lombok.RequiredArgsConstructor;
@@ -33,18 +33,16 @@ public class TeacherController {
     //todo: update teacher (name)
 
     @PutMapping("/{id}/unit")
-    public ResponseEntity<UnitDTO> registerUnit(
+    public ResponseEntity<UnitTeacherDTO> registerUnit(
             @PathVariable("id") Long teacherId,
-            @Valid @RequestBody UnitRegistrationDTO registrationDTO
+            @Valid @RequestBody UnitTeacherRegistrationDTO registrationDTO
     ) {
         log.info("REST request to register Unit: {}, for Teacher with id: {}", registrationDTO, teacherId);
-        UnitDTO result = unitService.register(teacherId, registrationDTO);
+        UnitTeacherDTO result = unitService.register(teacherId, registrationDTO);
         return ResponseEntity.ok(result);
     }
 
     //todo: get unit of a teacher
-
-    //todo: get unit of a lesson
 
     //todo: get all units with page and size
 }
