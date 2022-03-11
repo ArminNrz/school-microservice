@@ -5,6 +5,7 @@ import com.school.academic.dto.unit.teacher.UnitTeacherDTO;
 import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.mapper.UnitMapper;
 import com.school.academic.repository.UnitRepository;
+import com.school.academic.repository.data.LessonUnitPointSum;
 import com.school.academic.repository.data.TeacherUnitPointSum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -103,6 +105,26 @@ public class UnitService {
         return returnValue;
     }
 
+    public BigDecimal countUnitsByLessonId (Long lessonId) {
+
+        BigDecimal lessonPoints = BigDecimal.ZERO ;
+
+        LessonUnitPointSum result = repository.countLessonUnitPoint(lessonId) ;
+
+        if (result != null && result.getSum() != null) {
+            lessonPoints = result.getSum() ;
+        }
+        log.debug("All points of this lesson is : {}", lessonPoints);
+        return lessonPoints ;
+    }
+
+    public List<Unit> getUnitsByLessonId(Long lessonId) {
+
+        log.debug("Enter to get Units by LessonId , {}" , lessonId);
+        List<Unit> units = repository.getUnitsByLessonId(lessonId) ;
+        return units ;
+    }
+
     //////////////////
     // COMMON
     /////////////////
@@ -127,4 +149,5 @@ public class UnitService {
             }
         }
     }
+
 }

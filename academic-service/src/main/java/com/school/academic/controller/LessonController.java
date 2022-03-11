@@ -1,8 +1,11 @@
 package com.school.academic.controller;
 
+import com.school.academic.domain.Unit;
 import com.school.academic.dto.lesson.LessonCreateDTO;
 import com.school.academic.dto.lesson.LessonDTO;
+import com.school.academic.dto.unit.lesson.UnitLessonDTO;
 import com.school.academic.service.entity.LessonService;
+import com.school.academic.service.highlevel.LessonGetUnitManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,7 @@ import java.util.List;
 public class LessonController {
 
     private final LessonService service;
+    private final LessonGetUnitManager lessonManager ;
 
     @PostMapping
     public ResponseEntity<LessonDTO> create(@Valid @RequestBody LessonCreateDTO createDTO) {
@@ -35,4 +39,17 @@ public class LessonController {
     }
 
     //todo: get unit of a lesson GET: /{lessonId}
+
+    @GetMapping("/{lessonId}")
+    public ResponseEntity<UnitLessonDTO> getUnits(@PathVariable("lessonId") Long lessonId) {
+
+        log.info("REST request to get all related units : {} " , lessonId);
+
+        UnitLessonDTO unitLessonDTO = lessonManager.getUnitsByLessonId(lessonId) ;
+        return ResponseEntity.ok(unitLessonDTO) ;
+
+
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.school.academic.service.higlevel;
+package com.school.academic.service.highlevel;
 
 import com.school.academic.domain.Unit;
 import com.school.academic.dto.unit.student.UnitStudentDTO;

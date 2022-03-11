@@ -38,4 +38,12 @@ public class LessonService {
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public LessonDTO getLessonById(Long lessonId) {
+        log.debug("Enter to get lesson By Id : {}" , lessonId);
+        Lesson lesson = repository.getById(lessonId) ;
+        LessonDTO lessonDTO = mapper.toDTO(lesson) ;
+
+        return lessonDTO ;
+    }
 }
