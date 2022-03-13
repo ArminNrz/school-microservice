@@ -6,6 +6,7 @@ import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.mapper.UnitMapper;
 import com.school.academic.repository.UnitRepository;
 import com.school.academic.repository.data.LessonUnitPointSum;
+import com.school.academic.repository.data.StudentUnitPointSum;
 import com.school.academic.repository.data.TeacherUnitPointSum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,6 +64,15 @@ public class UnitService {
         }
         log.debug("Teacher: {} point sum, is: {}", teacherId, pointSum);
         return pointSum;
+    }
+
+    public BigDecimal getStudentPointSum(Long studentId) {
+        BigDecimal pointSum = BigDecimal.ZERO ;
+        StudentUnitPointSum result = repository.countStudentUnitPoint(studentId) ;
+        if(result !=null && result.getSum() != null) {
+            pointSum = result.getSum() ;
+        }
+         return pointSum ;
     }
 
     public List<Long> getUnitLessons(List<Long> ids) {
@@ -149,5 +159,7 @@ public class UnitService {
             }
         }
     }
+
+
 
 }

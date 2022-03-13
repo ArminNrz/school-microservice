@@ -1,7 +1,9 @@
 package com.school.academic.repository;
 
 import com.school.academic.domain.Unit;
+import com.school.academic.dto.unit.student.UnitStudentDetailsDTO;
 import com.school.academic.repository.data.LessonUnitPointSum;
+import com.school.academic.repository.data.StudentUnitPointSum;
 import com.school.academic.repository.data.TeacherUnitPointSum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,6 +35,14 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
 
     @Query("FROM Unit U where U.lessonId = :lessonId")
     List<Unit> getUnitsByLessonId(@Param("lessonId") Long lessonId) ;
+
+
+    @Query(
+            value = "SELECT sum(U.point) AS Sum " +
+                    "FROM unit as U " +
+                    "WHERE U.student_id =:studentId AND U.is_active = true"
+            , nativeQuery = true)
+    StudentUnitPointSum countStudentUnitPoint(Long StudentId) ;
 
 
 }

@@ -23,4 +23,13 @@ public class StudentService {
         log.debug("Saved Student: {}", entity);
         return mapper.toDTO(entity);
     }
+
+    public StudentDTO getStudentByNationalCode(Long nationalCode) {
+
+        Student student = repository.getStudentByNationalId(nationalCode) ;
+        StudentDTO studentDTO = mapper.toDTO(student) ;
+
+        return studentDTO ;
+
+    }
 }

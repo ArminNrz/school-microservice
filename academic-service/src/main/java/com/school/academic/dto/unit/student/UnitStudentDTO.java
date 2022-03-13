@@ -14,4 +14,5 @@ public class UnitStudentDTO extends UnitStudentBaseDTO {
     private BigDecimal point;
 
     private BigDecimal studentPointSum;
+
 }
