@@ -1,7 +1,6 @@
 package com.school.academic.repository;
 
 import com.school.academic.domain.Unit;
-import com.school.academic.dto.unit.student.UnitStudentDetailsDTO;
 import com.school.academic.repository.data.LessonUnitPointSum;
 import com.school.academic.repository.data.StudentUnitPointSum;
 import com.school.academic.repository.data.TeacherUnitPointSum;
@@ -30,11 +29,11 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
                     "FROM unit as U " +
                     "WHERE U.lesson_id =:lessonId AND U.is_active = true"
             , nativeQuery = true)
-    LessonUnitPointSum countLessonUnitPoint(@Param("lessonId") Long lessonId) ;
+    LessonUnitPointSum countLessonUnitPoint(@Param("lessonId") Long lessonId);
 
 
-    @Query("FROM Unit U where U.lessonId = :lessonId")
-    List<Unit> getUnitsByLessonId(@Param("lessonId") Long lessonId) ;
+    @Query(value = "FROM Unit U where U.lessonId = :lessonId")
+    List<Unit> getUnitsByLessonId(@Param("lessonId") Long lessonId);
 
 
     @Query(
@@ -42,7 +41,7 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
                     "FROM unit as U " +
                     "WHERE U.student_id =:studentId AND U.is_active = true"
             , nativeQuery = true)
-    StudentUnitPointSum countStudentUnitPoint(Long StudentId) ;
+    StudentUnitPointSum countStudentUnitPoint(@Param("studentId") Long StudentId);
 
 
 }

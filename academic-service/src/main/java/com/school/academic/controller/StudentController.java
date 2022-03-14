@@ -4,7 +4,6 @@ import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
-import com.school.academic.dto.unit.student.UnitStudentDetailsDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.highlevel.StudentGetDetails;
@@ -25,7 +24,7 @@ public class StudentController {
 
     private final StudentService service;
     private final StudentRegisterUnitManager registerUnitManager;
-    private final StudentGetDetails studentGetDetails ;
+    private final StudentGetDetails studentGetDetails;
 
     @PostMapping
     public ResponseEntity<StudentDTO> create(@Valid @RequestBody StudentCreateDTO createDTO) {
@@ -48,14 +47,13 @@ public class StudentController {
     //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
 
 
-
     @GetMapping("/{nationalCode}")
     public ResponseEntity<StudentDetailsDTO> getStudentDetails(@PathVariable("nationalCode") Long nationalCode) {
         log.info("REST request to get student Details by NationalCode : {}", nationalCode);
 
-        StudentDetailsDTO result = studentGetDetails.getStudentDetailsByNationalCode(nationalCode) ;
+        StudentDetailsDTO result = studentGetDetails.getStudentDetails(nationalCode);
 
-        return ResponseEntity.ok(result) ;
+        return ResponseEntity.ok(result);
 
     }
     /*

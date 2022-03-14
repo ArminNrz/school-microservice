@@ -9,11 +9,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class StudentService {
-    
+
     private final StudentRepository repository;
     private final StudentMapper mapper;
 
@@ -24,12 +26,20 @@ public class StudentService {
         return mapper.toDTO(entity);
     }
 
-    public StudentDTO getStudentByNationalCode(Long nationalCode) {
+    public StudentDTO findByNationalCode(Long nationalCode) {
+        log.debug("Request to get student by nationalCode :{}", nationalCode);
+        Optional<Student> studentOptional = repository.findByNationalCode(nationalCode);
 
-        Student student = repository.getStudentByNationalId(nationalCode) ;
-        StudentDTO studentDTO = mapper.toDTO(student) ;
+        if (studentOptional.isEmpty()) {
+            //todo log.error
+            return null;
 
-        return studentDTO ;
+        }
+
+
+        StudentDTO studentDTO = mapper.toDTO(studentOptional.get());
+        //todo:log
+        return studentDTO;
 
     }
 }

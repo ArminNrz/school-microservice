@@ -6,7 +6,6 @@ import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.mapper.UnitMapper;
 import com.school.academic.repository.UnitRepository;
 import com.school.academic.repository.data.LessonUnitPointSum;
-import com.school.academic.repository.data.StudentUnitPointSum;
 import com.school.academic.repository.data.TeacherUnitPointSum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,14 +64,6 @@ public class UnitService {
         return pointSum;
     }
 
-    public BigDecimal getStudentPointSum(Long studentId) {
-        BigDecimal pointSum = BigDecimal.ZERO ;
-        StudentUnitPointSum result = repository.countStudentUnitPoint(studentId) ;
-        if(result !=null && result.getSum() != null) {
-            pointSum = result.getSum() ;
-        }
-         return pointSum ;
-    }
 
     public List<Long> getUnitLessons(List<Long> ids) {
         log.debug("Request to get unit lessons");
@@ -115,24 +105,24 @@ public class UnitService {
         return returnValue;
     }
 
-    public BigDecimal countUnitsByLessonId (Long lessonId) {
+    public BigDecimal countUnitsByLessonId(Long lessonId) {
 
-        BigDecimal lessonPoints = BigDecimal.ZERO ;
+        BigDecimal lessonPoints = BigDecimal.ZERO;
 
-        LessonUnitPointSum result = repository.countLessonUnitPoint(lessonId) ;
+        LessonUnitPointSum result = repository.countLessonUnitPoint(lessonId);
 
         if (result != null && result.getSum() != null) {
-            lessonPoints = result.getSum() ;
+            lessonPoints = result.getSum();
         }
         log.debug("All points of this lesson is : {}", lessonPoints);
-        return lessonPoints ;
+        return lessonPoints;
     }
 
     public List<Unit> getUnitsByLessonId(Long lessonId) {
 
-        log.debug("Enter to get Units by LessonId , {}" , lessonId);
-        List<Unit> units = repository.getUnitsByLessonId(lessonId) ;
-        return units ;
+        log.debug("Enter to get Units by LessonId , {}", lessonId);
+        List<Unit> units = repository.getUnitsByLessonId(lessonId);
+        return units;
     }
 
     //////////////////
@@ -159,7 +149,6 @@ public class UnitService {
             }
         }
     }
-
 
 
 }

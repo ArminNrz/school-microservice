@@ -24,4 +24,6 @@ public class StudentMapper {
         dto.setNationalCode(entity.getNationalCode());
         return dto;
     }
+
+    //todo  toStudentDetails method
 }

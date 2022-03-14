@@ -14,7 +14,7 @@ import java.util.Objects;
         @Index(name = "unit_id_idx", columnList = "unit_id"),
         @Index(name = "student_id_idx", columnList = "student_id"),
         @Index(name = "student_unit_idx", columnList = "student_id, unit_id")
-}, uniqueConstraints ={
+}, uniqueConstraints = {
         @UniqueConstraint(columnNames = {"student_id", "unit_id"})
 })
 @Getter
