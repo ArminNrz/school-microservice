@@ -19,7 +19,7 @@ import java.util.List;
 public class LessonController {
 
     private final LessonService service;
-    private final LessonGetUnitManager lessonManager;
+
 
     @PostMapping
     public ResponseEntity<LessonDTO> create(@Valid @RequestBody LessonCreateDTO createDTO) {
