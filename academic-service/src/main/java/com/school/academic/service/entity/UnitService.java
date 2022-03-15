@@ -127,4 +127,12 @@ public class UnitService {
             }
         }
     }
+
+    public List<Unit> getAllUnitsByStudentId(Long studentId) {
+        return repository.findAllUnitsByStudentId(studentId);
+    }
+
+    public BigDecimal getSumOfPointsByStudentId(Long studentId) {
+        return repository.findSumOfPointsByStudentId(studentId);
+    }
 }

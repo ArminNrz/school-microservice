@@ -1,8 +1,13 @@
 package com.school.academic.service.higlevel;
 
+import com.school.academic.domain.Student;
 import com.school.academic.domain.Unit;
+import com.school.academic.dto.student.StudentDetailDTO;
+import com.school.academic.dto.unit.student.UnitDetailsDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
+import com.school.academic.mapper.UnitMapper;
+import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.entity.UnitService;
 import com.school.academic.service.entity.UnitStudentService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +18,7 @@ import org.zalando.problem.Status;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,6 +27,8 @@ public class StudentRegisterUnitManager {
 
     private final UnitStudentService unitStudentService;
     private final UnitService unitService;
+    private final StudentService studentService;
+    private final UnitMapper unitMapper;
 
     public UnitStudentDTO register(Long studentId, UnitStudentRegistrationDTO registrationDTO) {
         log.debug("Request to register Unit: {}, for Student: {}", registrationDTO.getUnitId(), studentId);
@@ -67,5 +75,30 @@ public class StudentRegisterUnitManager {
 
         log.debug("Student: {}, pointSum: {}", studentId, studentUnitPointSum);
         return studentUnitPointSum;
+    }
+
+    public StudentDetailDTO getStudentDetails(Long nationalCode) {
+        log.debug("Request was sent to getStudentDetails by nationalCode: {}", nationalCode);
+
+        Student student = studentService.getByNationalCode(nationalCode);
+        BigDecimal sumOfPoints = unitService.getSumOfPointsByStudentId(student.getId());
+        List<Unit> unitList = unitService.getAllUnitsByStudentId(student.getId());
+
+        List<UnitDetailsDTO> unitDetailsDTOList = unitList.stream()
+                .map(unitMapper::toUnitDetailsDTO).collect(Collectors.toList());
+
+        return createStudentDetailDTO(student, sumOfPoints, unitDetailsDTOList);
+
+    }
+
+    private StudentDetailDTO createStudentDetailDTO(Student student, BigDecimal sumOfPoints, List<UnitDetailsDTO> unitDetailsDTOList) {
+        StudentDetailDTO response = new StudentDetailDTO();
+        response.setStudentUnits(unitDetailsDTOList);
+        response.setPointSum(sumOfPoints);
+        response.setFirstName(student.getFirstName());
+        response.setLastName(student.getLastName());
+        response.setNationalCode(student.getNationalCode());
+
+        return response;
     }
 }

@@ -2,12 +2,14 @@ package com.school.academic.controller;
 
 import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
+import com.school.academic.dto.student.StudentDetailDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.StudentRegisterUnitManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +44,13 @@ public class StudentController {
     }
 
     //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
+
+    @GetMapping("/getDetails/{nationalCode}")
+    public ResponseEntity<StudentDetailDTO> getStudentDetailsInfo(@PathVariable Long nationalCode) {
+        log.info("REST request to getStudentDetailsInfo: {}", nationalCode);
+        StudentDetailDTO studentDetails = registerUnitManager.getStudentDetails(nationalCode);
+        return ResponseEntity.status(HttpStatus.OK).body(studentDetails);
+    }
 
     /*
 
