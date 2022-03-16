@@ -8,6 +8,8 @@ import com.school.academic.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import java.util.Optional;
 
@@ -33,7 +35,7 @@ public class StudentService {
             return studentOptional.get();
         else {
             log.error("No student exists by nationalCode: {}", nationalCode);
-            return null;
+            throw Problem.valueOf(Status.BAD_REQUEST, "No student exists by nationalCode");
         }
     }
 }

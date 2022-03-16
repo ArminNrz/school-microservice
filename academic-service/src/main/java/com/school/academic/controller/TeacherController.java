@@ -30,7 +30,6 @@ public class TeacherController {
         return ResponseEntity.created(URI.create("/api/academic/teachers")).body(result);
     }
 
-    //todo: update teacher (name)
 
     @PutMapping("/{id}/unit")
     public ResponseEntity<UnitTeacherDTO> registerUnit(
@@ -41,8 +40,4 @@ public class TeacherController {
         UnitTeacherDTO result = unitService.register(teacherId, registrationDTO);
         return ResponseEntity.ok(result);
     }
-
-    //todo: get unit of a teacher
-
-    //todo: get all units with page and size
 }

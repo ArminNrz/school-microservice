@@ -41,8 +41,8 @@ public class UnitMapper {
 
     public UnitDetailsDTO toUnitDetailsDTO(Unit entity) {
         UnitDetailsDTO dto = new UnitDetailsDTO();
-        dto.setLessonName(entity.getLesson().getName());
-        dto.setTeacherName(entity.getTeacher().getName());
+        dto.setLessonName(entity.getLesson() != null ? entity.getLesson().getName() : null);
+        dto.setTeacherName(entity.getTeacher() != null ? entity.getTeacher().getName() : null);
         dto.setPoint(entity.getPoint());
         return dto;
     }

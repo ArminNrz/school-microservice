@@ -32,8 +32,6 @@ public class StudentController {
         return ResponseEntity.created(URI.create("/api/academic/students")).body(result);
     }
 
-    //todo: update student names
-
     @PutMapping("/{id}/unit")
     public ResponseEntity<UnitStudentDTO> register(
             @PathVariable("id") Long studentId,
@@ -43,40 +41,10 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
-    //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
-
     @GetMapping("/getDetails/{nationalCode}")
     public ResponseEntity<StudentDetailDTO> getStudentDetailsInfo(@PathVariable Long nationalCode) {
         log.info("REST request to getStudentDetailsInfo: {}", nationalCode);
         StudentDetailDTO studentDetails = registerUnitManager.getStudentDetails(nationalCode);
         return ResponseEntity.status(HttpStatus.OK).body(studentDetails);
     }
-
-    /*
-
-    GET: /{id}
-    {
-        firstName:
-        lastName:
-        nationalCode:
-        unitDetails: [
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            },
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            }
-        ]
-        unitPointSum:
-    }
-     */
-
-
-    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
 }
