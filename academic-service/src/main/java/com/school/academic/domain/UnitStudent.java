@@ -38,6 +38,7 @@ public class UnitStudent {
     @Column(name = "unit_id", insertable = false, updatable = false)
     private Long unitId;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
     @ToString.Exclude

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class StudentService {
-    
+
     private final StudentRepository repository;
     private final StudentMapper mapper;
 
@@ -22,5 +22,9 @@ public class StudentService {
         repository.save(entity);
         log.debug("Saved Student: {}", entity);
         return mapper.toDTO(entity);
+    }
+
+    public Student getOne(Long studentId) {
+        return repository.getById(studentId);
     }
 }

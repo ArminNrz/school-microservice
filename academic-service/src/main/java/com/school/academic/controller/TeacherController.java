@@ -42,7 +42,4 @@ public class TeacherController {
         return ResponseEntity.ok(result);
     }
 
-    //todo: get unit of a teacher
-
-    //todo: get all units with page and size
 }

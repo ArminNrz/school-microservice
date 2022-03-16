@@ -127,4 +127,16 @@ public class UnitService {
             }
         }
     }
+
+    public Unit getByPointGreaterThanEqual(BigDecimal point) {
+        Optional<Unit> unitOptional = repository.findByPointGreaterThanEqual(point);
+        if (unitOptional.isPresent())
+            return unitOptional.get();
+        else {
+            log.error("unit was not found with point: {}", point);
+            throw Problem.valueOf(Status.BAD_REQUEST, "unit was not found with point");
+
+        }
+    }
+
 }

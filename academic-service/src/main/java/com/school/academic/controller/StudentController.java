@@ -6,6 +6,7 @@ import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.StudentRegisterUnitManager;
+import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -41,33 +42,11 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
-    //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
-
-    /*
-
-    GET: /{id}
-    {
-        firstName:
-        lastName:
-        nationalCode:
-        unitDetails: [
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            },
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            }
-        ]
-        unitPointSum:
+    @PutMapping("/financialInvoice/{studentId}")
+    public ResponseEntity<StudentFinanceRegisterResponse> getFinancialInvoiceByStudentId(@PathVariable Long studentId) {
+        log.info("REST request was sent to showStudentFinancialInvoice with studentId : {}", studentId);
+        StudentFinanceRegisterResponse result = registerUnitManager.showStudentFinancialInvoice(studentId);
+        return ResponseEntity.ok(result);
     }
-     */
 
-
-    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
 }
