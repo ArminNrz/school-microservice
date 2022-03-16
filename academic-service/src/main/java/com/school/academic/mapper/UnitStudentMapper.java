@@ -4,7 +4,9 @@ import com.school.academic.domain.Student;
 import com.school.academic.domain.Unit;
 import com.school.academic.domain.UnitStudent;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
+import com.school.academic.dto.unit.student.UnitStudentDetail;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
+import com.school.academic.repository.data.UnitDetailData;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,5 +33,13 @@ public class UnitStudentMapper {
         dto.setStudentId(entity.getStudentId());
         dto.setUnitId(entity.getUnitId());
         return dto;
+    }
+
+    public UnitStudentDetail toUnitDetails(UnitDetailData unitDetailData) {
+        UnitStudentDetail detail = new UnitStudentDetail();
+        detail.setLessonName(unitDetailData.getLessonName());
+        detail.setTeacherName(unitDetailData.getTeacherName());
+        detail.setPoint(unitDetailData.getPoint());
+        return detail;
     }
 }
