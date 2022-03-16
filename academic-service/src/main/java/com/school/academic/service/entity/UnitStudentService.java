@@ -2,10 +2,12 @@ package com.school.academic.service.entity;
 
 import com.school.academic.domain.UnitStudent;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
+import com.school.academic.dto.unit.student.UnitStudentDetail;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.mapper.UnitStudentMapper;
 import com.school.academic.repository.UnitStudentRepository;
 import com.school.academic.repository.data.StudentUnitPointSum;
+import com.school.academic.repository.data.UnitDetailData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,5 +71,14 @@ public class UnitStudentService {
                 .collect(Collectors.toList());
         log.debug("Student: {}, units: {}", studentId, returnValue);
         return returnValue;
+    }
+
+    public List<UnitStudentDetail> getStudentUnitDetails(Long studentId) {
+        log.debug("Request to get student unit details with studentId: {}", studentId);
+        List<UnitDetailData> result = repository.findUnitByStudentId(studentId);
+
+        return result.stream()
+                .map(mapper::toUnitDetails)
+                .collect(Collectors.toList());
     }
 }

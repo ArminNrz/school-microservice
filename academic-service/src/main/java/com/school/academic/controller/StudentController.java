@@ -2,10 +2,11 @@ package com.school.academic.controller;
 
 import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
+import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
-import com.school.academic.service.higlevel.StudentRegisterUnitManager;
+import com.school.academic.service.higlevel.StudentUnitManagementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ import java.net.URI;
 public class StudentController {
 
     private final StudentService service;
-    private final StudentRegisterUnitManager registerUnitManager;
+    private final StudentUnitManagementService studentUnitManagementService;
 
     @PostMapping
     public ResponseEntity<StudentDTO> create(@Valid @RequestBody StudentCreateDTO createDTO) {
@@ -37,37 +38,15 @@ public class StudentController {
             @PathVariable("id") Long studentId,
             @Valid @RequestBody UnitStudentRegistrationDTO registrationDTO) {
         log.info("REST request to register unit: {}, for StudentId: {}", registrationDTO, studentId);
-        UnitStudentDTO result = registerUnitManager.register(studentId, registrationDTO);
+        UnitStudentDTO result = studentUnitManagementService.register(studentId, registrationDTO);
         return ResponseEntity.ok(result);
     }
 
-    //todo: get student by id (id, name, family, List<units = unitId, teacherName, lessonName, point>, pointSum)
-
-    /*
-
-    GET: /{id}
-    {
-        firstName:
-        lastName:
-        nationalCode:
-        unitDetails: [
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            },
-            {
-                unitId:
-                teacherName:
-                lessonName:
-                pint:
-            }
-        ]
-        unitPointSum:
+    @GetMapping("/{nationalCode}")
+    public ResponseEntity<StudentDetailsDTO> getDetailsByNationalCode(@PathVariable("nationalCode") Long nationalCode) {
+        log.info("REST request to get student: {}, details", nationalCode);
+        return ResponseEntity.ok(studentUnitManagementService.getDetailsByNationalCode(nationalCode));
     }
-     */
-
 
     //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
 }
