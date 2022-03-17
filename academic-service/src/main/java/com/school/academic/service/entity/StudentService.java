@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -22,5 +24,16 @@ public class StudentService {
         repository.save(entity);
         log.debug("Saved Student: {}", entity);
         return mapper.toDTO(entity);
+    }
+
+    public Student getByNationalCode(Long nationalCode) {
+
+        Optional<Student> studentOptional = repository.findByNationalCode(nationalCode);
+        if (studentOptional.isEmpty()) {
+            log.error("No such student exist with nationalCode: {}", nationalCode);
+            return null;
+        }
+
+        return studentOptional.get();
     }
 }

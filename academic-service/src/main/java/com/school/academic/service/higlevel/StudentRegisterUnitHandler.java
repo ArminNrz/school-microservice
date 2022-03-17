@@ -7,35 +7,34 @@ import com.school.academic.service.entity.UnitService;
 import com.school.academic.service.entity.UnitStudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Service
+@Component
 @Slf4j
 @RequiredArgsConstructor
-public class StudentRegisterUnitManager {
+public class StudentRegisterUnitHandler {
 
     private final UnitStudentService unitStudentService;
     private final UnitService unitService;
 
-    public UnitStudentDTO register(Long studentId, UnitStudentRegistrationDTO registrationDTO) {
-        log.debug("Request to register Unit: {}, for Student: {}", registrationDTO.getUnitId(), studentId);
+    public UnitStudentDTO register(UnitStudentRegistrationDTO registrationDTO) {
+        log.debug("Request to register Unit: {}, for Student: {}", registrationDTO.getUnitId(), registrationDTO.getStudentId());
 
-        registrationDTO.setStudentId(studentId);
 
         Unit unit = unitService.findById(registrationDTO.getUnitId());
         if (unit == null) {
             throw Problem.valueOf(Status.BAD_REQUEST, "No such unit exist");
         }
 
-        checkLessonNotIterated(studentId, registrationDTO, unit);
+        checkLessonNotIterated(registrationDTO.getStudentId(), registrationDTO, unit);
 
         BigDecimal unitPoint = unit.getPoint();
-        BigDecimal studentPointSum = checkAndGetStudentUnitPointSum(studentId, unitPoint);
+        BigDecimal studentPointSum = checkAndGetStudentUnitPointSum(registrationDTO.getStudentId(), unitPoint);
 
         UnitStudentDTO returnValue = unitStudentService.register(registrationDTO);
         returnValue.setPoint(unitPoint);
