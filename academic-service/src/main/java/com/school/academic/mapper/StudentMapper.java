@@ -4,7 +4,10 @@ import com.school.academic.domain.Student;
 import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
+import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @Component
 public class StudentMapper {
@@ -32,5 +35,12 @@ public class StudentMapper {
         dto.setLastName(entity.getLastName());
         dto.setNationalCode(entity.getNationalCode());
         return dto;
+    }
+
+    public StudentFinanceRegisterRequest toStudentFinanceRequest(Long studentId, BigDecimal pointSum) {
+        StudentFinanceRegisterRequest request = new StudentFinanceRegisterRequest();
+        request.setStudentId(studentId);
+        request.setPointSum(pointSum);
+        return request;
     }
 }

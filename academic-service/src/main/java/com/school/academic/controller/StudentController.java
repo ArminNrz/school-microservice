@@ -7,6 +7,7 @@ import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.StudentUnitManagementService;
+import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -49,4 +50,10 @@ public class StudentController {
     }
 
     //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
+    @PutMapping("/{id}/end-register")
+    public ResponseEntity<StudentFinanceRegisterResponse> endRegisteration(@PathVariable(name = "id") Long id) {
+        log.info("REST request to end register for Student: {}", id);
+        StudentFinanceRegisterResponse result = studentUnitManagementService.endRegisterAndGetFinanceCode(id);
+        return ResponseEntity.ok(result);
+    }
 }
