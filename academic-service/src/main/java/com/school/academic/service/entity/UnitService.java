@@ -129,10 +129,10 @@ public class UnitService {
     }
 
     public List<Unit> getAllUnitsByStudentId(Long studentId) {
-        return repository.findAllUnitsByStudentId(studentId);
+        List<Unit> units = repository.findAllUnitsByStudentId(studentId);
+        log.debug("Student: {}, units: {}", studentId, units);
+
+        return units;
     }
 
-    public BigDecimal getSumOfPointsByStudentId(Long studentId) {
-        return repository.findSumOfPointsByStudentId(studentId);
-    }
 }

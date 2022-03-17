@@ -81,7 +81,12 @@ public class StudentRegisterUnitManager {
         log.debug("Request was sent to getStudentDetails by nationalCode: {}", nationalCode);
 
         Student student = studentService.getByNationalCode(nationalCode);
-        BigDecimal sumOfPoints = unitService.getSumOfPointsByStudentId(student.getId());
+        if (student == null) {
+            log.error("No student exists by nationalCode: {}", nationalCode);
+            throw Problem.valueOf(Status.BAD_REQUEST, "No student exists by nationalCode");
+        }
+
+        BigDecimal sumOfPoints = unitStudentService.getStudentUnitPointSum(student.getId());
         List<Unit> unitList = unitService.getAllUnitsByStudentId(student.getId());
 
         List<UnitDetailsDTO> unitDetailsDTOList = unitList.stream()

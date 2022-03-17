@@ -8,8 +8,6 @@ import com.school.academic.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.zalando.problem.Problem;
-import org.zalando.problem.Status;
 
 import java.util.Optional;
 
@@ -31,11 +29,6 @@ public class StudentService {
     public Student getByNationalCode(Long nationalCode) {
         log.debug("Request was sent to get student by nationalCode: {}", nationalCode);
         Optional<Student> studentOptional = repository.findByNationalCode(nationalCode);
-        if (studentOptional.isPresent())
-            return studentOptional.get();
-        else {
-            log.error("No student exists by nationalCode: {}", nationalCode);
-            throw Problem.valueOf(Status.BAD_REQUEST, "No student exists by nationalCode");
-        }
+        return studentOptional.orElse(null);
     }
 }
