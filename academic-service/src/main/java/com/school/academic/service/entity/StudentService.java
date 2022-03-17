@@ -36,4 +36,13 @@ public class StudentService {
 
         return studentOptional.get();
     }
+    public StudentDTO endRegister(Long studentId) {
+
+        Student student = repository.getById(studentId) ;
+        if(!student.getEndRegistering()) {
+            student.setEndRegistering(true);
+            repository.save(student) ;
+        }
+        return mapper.toDTO(student) ;
+    }
 }

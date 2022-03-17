@@ -38,6 +38,9 @@ public class Student {
     @ToString.Exclude
     private Set<UnitStudent> unitStudents = new LinkedHashSet<>();
 
+    @Column(name = "end_register")
+    private Boolean endRegistering = false ;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

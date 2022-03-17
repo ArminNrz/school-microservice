@@ -17,4 +17,6 @@ public class StudentBaseDTO implements Serializable {
 
     @NotNull
     private Long nationalCode;
+    @NotNull
+    private Boolean endRegistering;
 }
