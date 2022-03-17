@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,4 +39,15 @@ public class LessonService {
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
+
+    public Lesson getById(Long lessonId) {
+        Optional<Lesson> lessonOptional = repository.findById(lessonId);
+        if (lessonOptional.isEmpty()) {
+            log.error("No such lesson exist with given id: {}", lessonId);
+            return null;
+        }
+
+        return lessonOptional.get();
+    }
+
 }

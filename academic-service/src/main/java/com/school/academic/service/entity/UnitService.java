@@ -127,4 +127,11 @@ public class UnitService {
             }
         }
     }
+
+    public List<Unit> getAllUnitsByLessonId(Long lessonId) {
+        List<Unit> units = repository.findAllByLessonId(lessonId);
+        log.debug("Lesson: {},unis: {}", lessonId, units);
+
+        return units;
+    }
 }

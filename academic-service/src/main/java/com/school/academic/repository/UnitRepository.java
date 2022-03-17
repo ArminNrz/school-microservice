@@ -21,4 +21,6 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     Optional<Unit> findByTeacherIdAndLessonId(Long teacherId, Long lessonId);
 
     List<Unit> findAllByIdIsIn(List<Long> ids);
+
+    List<Unit> findAllByLessonId(Long lessonId);
 }
