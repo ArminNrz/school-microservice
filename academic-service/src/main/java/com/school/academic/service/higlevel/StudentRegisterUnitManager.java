@@ -2,7 +2,6 @@ package com.school.academic.service.higlevel;
 
 import com.school.academic.domain.Student;
 import com.school.academic.domain.Unit;
-import com.school.academic.domain.UnitStudent;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
@@ -44,11 +43,21 @@ public class StudentRegisterUnitManager {
         BigDecimal unitPoint = unit.getPoint();
         BigDecimal studentPointSum = checkAndGetStudentUnitPointSum(studentId, unitPoint);
 
+        checkUnitRegisterAccess(studentId);
+
         UnitStudentDTO returnValue = unitStudentService.register(registrationDTO);
         returnValue.setPoint(unitPoint);
         returnValue.setStudentPointSum(studentPointSum);
 
         return returnValue;
+    }
+
+    private void checkUnitRegisterAccess(Long studentId) {
+        Student student = studentService.getOne(studentId);
+        if (!student.getAccess()) {
+            log.error("Student: {},dose not let to register unit", studentId);
+            throw Problem.valueOf(Status.BAD_REQUEST, "Student dose not let to register unit");
+        }
     }
 
     private void checkLessonNotIterated(Long studentId, UnitStudentRegistrationDTO registrationDTO, Unit unit) {
@@ -77,14 +86,11 @@ public class StudentRegisterUnitManager {
     }
 
 
-    public StudentFinanceRegisterResponse showStudentFinancialInvoice(Long studentId) {
+    public StudentFinanceRegisterResponse disconnectAccess(Long studentId) {
         BigDecimal pointSum = unitStudentService.getStudentUnitPointSum(studentId);
-        Unit unit = unitService.getByPointGreaterThanEqual(BigDecimal.valueOf(10));
         Student student = studentService.getOne(studentId);
-        UnitStudent unitStudent = new UnitStudent();
-        unitStudent.setUnit(unit);
-        unitStudent.setStudent(student);
-        unitStudentService.save(unitStudent);
+        student.setAccess(false);
+        studentService.save(student);
 
         return financeClientService.register(studentId, pointSum);
     }

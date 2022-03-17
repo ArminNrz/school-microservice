@@ -45,7 +45,7 @@ public class StudentController {
     @PutMapping("/financialInvoice/{studentId}")
     public ResponseEntity<StudentFinanceRegisterResponse> getFinancialInvoiceByStudentId(@PathVariable Long studentId) {
         log.info("REST request was sent to showStudentFinancialInvoice with studentId : {}", studentId);
-        StudentFinanceRegisterResponse result = registerUnitManager.showStudentFinancialInvoice(studentId);
+        StudentFinanceRegisterResponse result = registerUnitManager.disconnectAccess(studentId);
         return ResponseEntity.ok(result);
     }
 

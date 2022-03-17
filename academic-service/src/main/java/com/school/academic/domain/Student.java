@@ -34,6 +34,9 @@ public class Student {
     @Column(name = "national_code", nullable = false, unique = true)
     private Long nationalCode;
 
+    @Column(name = "access")
+    private Boolean access = true;
+
     @OneToMany(mappedBy = "student")
     @ToString.Exclude
     private Set<UnitStudent> unitStudents = new LinkedHashSet<>();

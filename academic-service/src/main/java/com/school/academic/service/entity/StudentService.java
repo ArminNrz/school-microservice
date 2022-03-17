@@ -27,4 +27,8 @@ public class StudentService {
     public Student getOne(Long studentId) {
         return repository.getById(studentId);
     }
+
+    public void save(Student student) {
+        repository.save(student);
+    }
 }
