@@ -2,10 +2,13 @@ package com.school.academic.controller;
 
 import com.school.academic.dto.teacher.TeacherCreateDTO;
 import com.school.academic.dto.teacher.TeacherDTO;
+import com.school.academic.dto.teacher.TeacherDetailsDTO;
 import com.school.academic.dto.unit.teacher.UnitTeacherDTO;
 import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.service.entity.TeacherService;
 import com.school.academic.service.entity.UnitService;
+import com.school.academic.service.higlevel.StudentUnitManagementService;
+import com.school.academic.service.higlevel.teacher.TeacherUnitManagementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ public class TeacherController {
 
     private final TeacherService service;
     private final UnitService unitService;
+    private final TeacherUnitManagementService teacherUnitManagementService;
 
     @PostMapping
     public ResponseEntity<TeacherDTO> create(@Valid @RequestBody TeacherCreateDTO createDTO) {
@@ -43,6 +47,13 @@ public class TeacherController {
     }
 
     //todo: get unit of a teacher
+    @GetMapping("/{nationalCode}")
+    public  ResponseEntity<TeacherDetailsDTO> getDetailsByNationalCode(@PathVariable(name ="nationalCode")Long nationalCode){
+        log.info("REST request to get teacher: {}, details", nationalCode);
+        TeacherDetailsDTO result=teacherUnitManagementService.getDetailsByNationalCode(nationalCode);
+        return ResponseEntity.ok(result);
+    }
+
 
     //todo: get all units with page and size
 }
