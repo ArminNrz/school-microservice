@@ -10,6 +10,6 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class StudentDetailsDTO extends StudentBaseDTO {
-    private BigDecimal unitPointSum;
     private List<UnitStudentDetail> unitDetails;
+    private BigDecimal unitPointSum;
 }

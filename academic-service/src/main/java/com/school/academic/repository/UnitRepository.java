@@ -2,6 +2,8 @@ package com.school.academic.repository;
 
 import com.school.academic.domain.Unit;
 import com.school.academic.repository.data.TeacherUnitPointSum;
+import com.school.academic.repository.data.UnitTeacherData;
+import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +25,14 @@ public interface UnitRepository extends JpaRepository<Unit, Long> {
     List<Unit> findAllByIdIsIn(List<Long> ids);
 
     List<Unit> findAllByLessonId(Long lessonId);
+
+    @Query(
+            value = "SELECT U.id AS id, L.name AS LessonName, U.point AS Point " +
+                    "FROM unit as U " +
+                    "INNER JOIN lesson L on U.lesson_id = L.id " +
+                    "INNER JOIN teacher T on U.teacher_id = T.id " +
+                    "WHERE U.teacher_id =:teacherId",
+            nativeQuery = true
+    )
+    List<UnitTeacherData> findUnitByTeacherId(@Param("teacherId") Long teacherId);
 }
