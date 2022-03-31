@@ -10,6 +10,9 @@ import com.school.academic.service.entity.UnitTeacherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -26,6 +29,9 @@ public class TeacherUnitDetailsHandler {
         log.debug("Request to get teacher details with nationalCode: {}", nationalCode);
         TeacherDetailsDTO returnValue;
         Teacher foundTeacher = service.getByNationalCode(nationalCode);
+        if(foundTeacher == null){
+            throw Problem.valueOf(Status.NOT_FOUND, "No such teacher exist with this id");
+        }
         returnValue = teacherMapper.toDetailsDTO(foundTeacher);
         BigDecimal activeUnitPointSum = unitService.getTeacherPointSum(foundTeacher.getId());
         returnValue.setActiveUnitPointSum(activeUnitPointSum);

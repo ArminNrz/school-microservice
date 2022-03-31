@@ -7,7 +7,6 @@ import com.school.academic.dto.unit.teacher.UnitTeacherDTO;
 import com.school.academic.dto.unit.teacher.UnitTeacherRegistrationDTO;
 import com.school.academic.service.entity.TeacherService;
 import com.school.academic.service.entity.UnitService;
-import com.school.academic.service.higlevel.StudentUnitManagementService;
 import com.school.academic.service.higlevel.teacher.TeacherUnitManagementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +49,7 @@ public class TeacherController {
     @GetMapping("/{nationalCode}")
     public  ResponseEntity<TeacherDetailsDTO> getDetailsByNationalCode(@PathVariable(name ="nationalCode")Long nationalCode){
         log.info("REST request to get teacher: {}, details", nationalCode);
-        TeacherDetailsDTO result=teacherUnitManagementService.getDetailsByNationalCode(nationalCode);
+        TeacherDetailsDTO result = teacherUnitManagementService.getDetailsByNationalCode(nationalCode);
         return ResponseEntity.ok(result);
     }
 
