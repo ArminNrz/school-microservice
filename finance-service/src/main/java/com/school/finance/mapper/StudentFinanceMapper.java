@@ -4,6 +4,7 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.dto.StudentFinanceDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -33,6 +34,18 @@ public class StudentFinanceMapper {
 
         return factor ;
 
+
+    }
+
+    public StudentFinanceDTO toDTO (StudentFinance studentFinance) {
+
+        StudentFinanceDTO studentFinanceDTO = new StudentFinanceDTO() ;
+        studentFinanceDTO.setStudentId(studentFinance.getStudentId());
+        studentFinanceDTO.setId(studentFinance.getId());
+        studentFinanceDTO.setIsPaid(studentFinance.getIsPaid());
+        studentFinanceDTO.setCost(studentFinance.getCost());
+
+        return studentFinanceDTO ;
 
     }
 }
