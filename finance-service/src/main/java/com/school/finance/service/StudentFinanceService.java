@@ -1,5 +1,6 @@
 package com.school.finance.service;
 
+import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
@@ -9,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -31,5 +34,13 @@ public class StudentFinanceService {
         repository.insert(entity);
         log.debug("Registered Student invoice: {}", entity);
         return mapper.toResponse(entity);
+    }
+
+    public StudentFactorResponse getFactorByStudentId (Long studentId) {
+        Optional<StudentFinance> entity = repository.findByStudentId(studentId) ;
+        if(entity.isEmpty()) {
+            throw Problem.valueOf(Status.NOT_FOUND , "The factor Not found") ;
+        }
+        return mapper.ToFactorResponse(entity.get()) ;
     }
 }

@@ -3,6 +3,7 @@ package com.school.academic.controller;
 import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
+import com.school.academic.dto.student.StudentFactorDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
@@ -55,5 +56,11 @@ public class StudentController {
         log.info("REST request to end register for Student: {}", id);
         StudentFinanceRegisterResponse result = studentUnitManagementService.endRegisterAndGetFinanceCode(id);
         return ResponseEntity.ok(result);
+    }
+    @GetMapping("{nationalCode}/get-factor")
+    public ResponseEntity<StudentFactorDTO> getFactor (@PathVariable("nationalCode") Long nationalCode) {
+        log.info("Rest Request to get factor by nationalCode: {}" , nationalCode);
+        StudentFactorDTO factor = studentUnitManagementService.getFactor(nationalCode) ;
+        return ResponseEntity.ok(factor) ;
     }
 }

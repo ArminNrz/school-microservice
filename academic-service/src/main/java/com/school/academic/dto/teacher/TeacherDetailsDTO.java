@@ -1,6 +1,5 @@
 package com.school.academic.dto.teacher;
 
-import com.school.academic.dto.unit.student.UnitDetailsDTO;
 import com.school.academic.dto.unit.teacher.UnitTeacherDetailsDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

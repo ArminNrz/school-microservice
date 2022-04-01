@@ -1,5 +1,6 @@
 package com.school.finance.mapper;
 
+import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
@@ -21,5 +22,17 @@ public class StudentFinanceMapper {
         response.setStudentId(entity.getStudentId());
         response.setInvoiceCode(entity.getId());
         return response;
+    }
+
+    public StudentFactorResponse ToFactorResponse (StudentFinance studentFinance) {
+
+        StudentFactorResponse factor = new StudentFactorResponse() ;
+        factor.setInvoiceCode(studentFinance.getId());
+        factor.setPointSum(studentFinance.getPointSum());
+        factor.setCost(studentFinance.getCost());
+
+        return factor ;
+
+
     }
 }

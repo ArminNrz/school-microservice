@@ -4,6 +4,7 @@ import com.school.academic.domain.Student;
 import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
+import com.school.academic.dto.student.StudentFactorDTO;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import org.springframework.stereotype.Component;
 
@@ -42,5 +43,14 @@ public class StudentMapper {
         request.setStudentId(studentId);
         request.setPointSum(pointSum);
         return request;
+    }
+
+    public StudentFactorDTO toFactorDTO (Student student) {
+        StudentFactorDTO factorDTO = new StudentFactorDTO() ;
+        factorDTO.setFirstName(student.getFirstName());
+        factorDTO.setLastName(student.getLastName());
+        factorDTO.setNationalCode(student.getNationalCode());
+
+        return factorDTO ;
     }
 }

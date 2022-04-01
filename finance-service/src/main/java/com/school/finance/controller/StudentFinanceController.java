@@ -1,15 +1,13 @@
 package com.school.finance.controller;
 
+import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.service.StudentFinanceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -26,5 +24,12 @@ public class StudentFinanceController {
         log.info("REST request to register invoice for Student: {}", registerRequest.getStudentId());
         StudentFinanceRegisterResponse response = service.register(registerRequest);
         return ResponseEntity.created(URI.create("/api/finance/students")).body(response);
+    }
+
+    @GetMapping("{studentId}")
+    public ResponseEntity<StudentFactorResponse> getStudentFactor (@PathVariable("studentId") Long studentId) {
+        log.info("Rest Request to get Factor by StudentId : {}"  , studentId) ;
+        StudentFactorResponse factor = service.getFactorByStudentId(studentId) ;
+        return ResponseEntity.created(URI.create("/api/finance/students")).body(factor);
     }
 }
