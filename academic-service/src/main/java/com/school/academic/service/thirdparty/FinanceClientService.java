@@ -2,6 +2,7 @@ package com.school.academic.service.thirdparty;
 
 import com.school.academic.mapper.StudentMapper;
 import com.school.clients.finance.StudentFinanceClient;
+import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,11 @@ public class FinanceClientService {
         StudentFinanceRegisterResponse response = studentFinanceClient.register(request);
         log.debug("Send request to Finance-service and response: {}", response);
         return response;
+    }
+    public StudentFactorResponse getFactor(Long studentId) {
+        log.debug("try to send request to Finance-service, to get StudentFactor : {}", studentId);
+        StudentFactorResponse response = studentFinanceClient.getFactor(studentId) ;
+        log.debug("Send request to Finance-service and response: {}", response);
+        return response ;
     }
 }
