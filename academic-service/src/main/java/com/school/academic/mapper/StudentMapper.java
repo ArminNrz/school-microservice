@@ -18,6 +18,7 @@ public class StudentMapper {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setNationalCode(dto.getNationalCode());
+        entity.setAccessUnitRegistration(true);
         return entity;
     }
 
