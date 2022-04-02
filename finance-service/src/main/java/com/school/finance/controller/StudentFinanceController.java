@@ -26,10 +26,10 @@ public class StudentFinanceController {
         return ResponseEntity.created(URI.create("/api/finance/students")).body(response);
     }
 
-    @GetMapping("{studentId}")
+    @GetMapping("/{studentId}")
     public ResponseEntity<StudentFactorResponse> getStudentFactor (@PathVariable("studentId") Long studentId) {
         log.info("Rest Request to get Factor by StudentId : {}"  , studentId) ;
         StudentFactorResponse factor = service.getFactorByStudentId(studentId) ;
-        return ResponseEntity.created(URI.create("/api/finance/students")).body(factor);
+        return ResponseEntity.ok(factor);
     }
 }
