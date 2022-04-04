@@ -4,6 +4,7 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.dto.StudentFinanceDTO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,9 +31,31 @@ public class StudentFinanceMapper {
         factor.setInvoiceCode(studentFinance.getId());
         factor.setPointSum(studentFinance.getPointSum());
         factor.setCost(studentFinance.getCost());
-
         return factor ;
 
+
+    }
+
+    public StudentFinanceDTO toDTO (StudentFinance studentFinance) {
+        StudentFinanceDTO studentFinanceDTO = new StudentFinanceDTO() ;
+        studentFinanceDTO.setStudentId(studentFinance.getStudentId());
+        studentFinanceDTO.setId(studentFinance.getId());
+        studentFinanceDTO.setCost(studentFinance.getCost());
+        studentFinanceDTO.setIsPaid(studentFinance.getIsPaid());
+        studentFinanceDTO.setDateTime(studentFinance.getDateTime());
+        studentFinanceDTO.setUpdateTime(studentFinance.getUpdateTime());
+        return studentFinanceDTO ;
+    }
+
+    public StudentFinance toFinanceEntity (StudentFinanceDTO studentFinanceDTO) {
+        StudentFinance studentFinance = new StudentFinance() ;
+        studentFinance.setStudentId(studentFinanceDTO.getStudentId());
+        studentFinance.setId(studentFinanceDTO.getId());
+        studentFinance.setIsPaid(studentFinanceDTO.getIsPaid());
+        studentFinance.setCost(studentFinanceDTO.getCost());
+        studentFinance.setDateTime(studentFinanceDTO.getDateTime());
+        studentFinanceDTO.setUpdateTime(studentFinanceDTO.getUpdateTime());
+        return studentFinance ;
 
     }
 }

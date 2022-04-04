@@ -4,6 +4,7 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.dto.StudentFinanceDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.repository.StudentFinanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -43,4 +45,23 @@ public class StudentFinanceService {
         }
         return mapper.ToFactorResponse(entity.get()) ;
     }
+    public StudentFinanceDTO getFactor(Long studentId) {
+        log.debug("Request to get factor by studentId : {}" ,studentId );
+        Optional<StudentFinance> studentFinance = repository.findByStudentId(studentId) ;
+
+        if(studentFinance.isEmpty()) {
+            throw Problem.valueOf(Status.NOT_FOUND , "Factor by this student Id not found ...") ;
+        }
+        return mapper.toDTO(studentFinance.get()) ;
+
+    }
+    public StudentFinance updateFactor(StudentFinanceDTO studentFinanceDTO) {
+        log.debug("Request to update Factor ...");
+        StudentFinance studentFinance = mapper.toFinanceEntity(studentFinanceDTO) ;
+        studentFinance.setUpdateTime(LocalDateTime.now());
+        return repository.save(studentFinance) ;
+
+    }
+
+
 }
