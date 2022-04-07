@@ -4,7 +4,7 @@ import com.school.academic.dto.lesson.LessonCreateDTO;
 import com.school.academic.dto.lesson.LessonDTO;
 import com.school.academic.dto.unit.lesson.UnitLessonDTO;
 import com.school.academic.service.entity.LessonService;
-import com.school.academic.service.higlevel.LessonUnitDetailsHandler;
+import com.school.academic.service.higlevel.lesson.LessonUnitDetailsHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -5,6 +5,7 @@ import com.school.academic.dto.student.StudentCreateDTO;
 import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.student.StudentFactorDTO;
+import com.school.amqp.dto.student.StudentNotificationDTO;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import org.springframework.stereotype.Component;
 
@@ -53,5 +54,14 @@ public class StudentMapper {
         factorDTO.setNationalCode(student.getNationalCode());
 
         return factorDTO ;
+    }
+
+    public StudentNotificationDTO toEvent(Student student, BigDecimal pointSum) {
+        StudentNotificationDTO notificationDTO = new StudentNotificationDTO();
+        notificationDTO.setFirstName(student.getFirstName());
+        notificationDTO.setLastName(student.getLastName());
+        notificationDTO.setPhoneNumber(student.getPhoneNumber());
+        notificationDTO.setPointSum(pointSum);
+        return notificationDTO;
     }
 }

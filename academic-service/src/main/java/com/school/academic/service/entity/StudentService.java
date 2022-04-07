@@ -58,7 +58,7 @@ public class StudentService {
         return foundStudent;
     }
 
-    public void endRegistration(Long id) {
+    public Student endRegistration(Long id) {
         log.debug("Request to end register for Student: {}", id);
 
         Student foundStudent = this.findById(id);
@@ -70,5 +70,6 @@ public class StudentService {
         this.update(foundStudent);
 
         log.debug("End registration for Student: {}", id);
+        return foundStudent;
     }
 }
