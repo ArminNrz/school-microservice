@@ -30,6 +30,7 @@ public class PaymentService {
         StudentFinanceDTO studentFinanceDTO = studentFinanceService.getFactor(studentId) ;
 
         if (amount.compareTo(BigDecimal.ZERO) == 0) {
+            log.debug("Amount Equals Zero ... ");
             throw Problem.valueOf(Status.BAD_REQUEST , "The amount equals Zero !") ;
         }
         BigDecimal factorCost = studentFinanceDTO.getCost() ;
@@ -38,6 +39,7 @@ public class PaymentService {
             studentFinanceDTO.setIsPaid(true);
         }
         if(amount.compareTo(factorCost) < 0 ) {
+            log.debug("Amount Equals : {} " , amount);
             studentFinanceDTO.setCost(factorCost.subtract(amount));
         }
         addStudentPayment(studentId,amount) ;

@@ -58,7 +58,6 @@ public class StudentFinanceService {
     public StudentFinance updateFactor(StudentFinanceDTO studentFinanceDTO) {
         log.debug("Request to update Factor ...");
         StudentFinance studentFinance = mapper.toFinanceEntity(studentFinanceDTO) ;
-        studentFinance.setUpdateTime(LocalDateTime.now());
         return repository.save(studentFinance) ;
 
     }

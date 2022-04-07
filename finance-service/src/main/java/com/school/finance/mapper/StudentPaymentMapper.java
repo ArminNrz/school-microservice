@@ -14,7 +14,6 @@ public class StudentPaymentMapper {
         studentPayment.setStudentFinanceId(studentPaymentDTO.getStudentFinanceId());
         studentPayment.setInitialCost(studentPaymentDTO.getInitialCost());
         studentPayment.setNewCost(studentPaymentDTO.getNewCost());
-        studentPayment.setCreateDateTime(studentPaymentDTO.getCreateDateTime());
 
         return studentPayment ;
 
@@ -26,7 +25,6 @@ public class StudentPaymentMapper {
         studentPaymentDTO.setId(studentPayment.getId());
         studentPaymentDTO.setAmount(studentPayment.getAmount());
         studentPaymentDTO.setInitialCost(studentPayment.getInitialCost());
-        studentPaymentDTO.setCreateDateTime(studentPayment.getCreateDateTime());
         studentPaymentDTO.setNewCost(studentPayment.getNewCost());
 
         return studentPaymentDTO ;

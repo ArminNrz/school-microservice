@@ -42,8 +42,6 @@ public class StudentFinanceMapper {
         studentFinanceDTO.setId(studentFinance.getId());
         studentFinanceDTO.setCost(studentFinance.getCost());
         studentFinanceDTO.setIsPaid(studentFinance.getIsPaid());
-        studentFinanceDTO.setDateTime(studentFinance.getDateTime());
-        studentFinanceDTO.setUpdateTime(studentFinance.getUpdateTime());
         return studentFinanceDTO ;
     }
 
@@ -53,8 +51,6 @@ public class StudentFinanceMapper {
         studentFinance.setId(studentFinanceDTO.getId());
         studentFinance.setIsPaid(studentFinanceDTO.getIsPaid());
         studentFinance.setCost(studentFinanceDTO.getCost());
-        studentFinance.setDateTime(studentFinanceDTO.getDateTime());
-        studentFinanceDTO.setUpdateTime(studentFinanceDTO.getUpdateTime());
         return studentFinance ;
 
     }
