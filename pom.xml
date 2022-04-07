@@ -12,6 +12,7 @@
         <module>base-common-layer</module>
         <module>finance-service</module>
         <module>clients</module>
+        <module>amqp</module>
     </modules>
     <name>school-microservice</name>
 
