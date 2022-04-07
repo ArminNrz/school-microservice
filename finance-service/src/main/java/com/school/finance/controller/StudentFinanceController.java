@@ -4,13 +4,14 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.dto.StudentFinanceDTO;
-import com.school.finance.service.StudentFinanceService;
-import com.school.finance.service.highLevel.PaymentService;
+import com.school.finance.dto.student.StudentFinancePaymentDTO;
+import com.school.finance.service.entity.StudentFinanceService;
+import com.school.finance.service.highLevel.PaymentServiceHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.math.BigDecimal;
+
 import java.net.URI;
 
 @RestController
@@ -20,7 +21,7 @@ import java.net.URI;
 public class StudentFinanceController {
 
     private final StudentFinanceService service;
-    private final PaymentService paymentService ;
+    private final PaymentServiceHandler paymentServiceHandler;
 
     @PostMapping
     public ResponseEntity<StudentFinanceRegisterResponse> register(@RequestBody StudentFinanceRegisterRequest registerRequest) {
@@ -37,10 +38,13 @@ public class StudentFinanceController {
     }
 
     @PutMapping("/{studentId}/pay-factor")
-    public ResponseEntity<StudentFinanceDTO> payFactorByStudentId(@PathVariable("studentId") Long studentId ,
-    @RequestParam("amount") BigDecimal amount) {
+    public ResponseEntity<StudentFinanceDTO> payFactorByStudentId(
+            @PathVariable("studentId") Long studentId,
+            @RequestBody StudentFinancePaymentDTO paymentDTO
+    ) {
         log.info("Rest Request to get factor By studentId : {}" , studentId);
-        StudentFinanceDTO updatedFactor = paymentService.payment(studentId , amount) ;
+        paymentDTO.setStudentId(studentId);
+        StudentFinanceDTO updatedFactor = paymentServiceHandler.payment(paymentDTO) ;
         return ResponseEntity.ok(updatedFactor) ;
     }
 }

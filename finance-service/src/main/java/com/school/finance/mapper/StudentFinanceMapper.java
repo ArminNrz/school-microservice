@@ -26,32 +26,23 @@ public class StudentFinanceMapper {
     }
 
     public StudentFactorResponse ToFactorResponse (StudentFinance studentFinance) {
-
         StudentFactorResponse factor = new StudentFactorResponse() ;
         factor.setInvoiceCode(studentFinance.getId());
         factor.setPointSum(studentFinance.getPointSum());
         factor.setCost(studentFinance.getCost());
         return factor ;
-
-
     }
 
-    public StudentFinanceDTO toDTO (StudentFinance studentFinance) {
-        StudentFinanceDTO studentFinanceDTO = new StudentFinanceDTO() ;
-        studentFinanceDTO.setStudentId(studentFinance.getStudentId());
-        studentFinanceDTO.setId(studentFinance.getId());
-        studentFinanceDTO.setCost(studentFinance.getCost());
-        studentFinanceDTO.setIsPaid(studentFinance.getIsPaid());
-        return studentFinanceDTO ;
-    }
+    public StudentFinanceDTO toDTO(StudentFinance studentFinance) {
+        StudentFinanceDTO dto = new StudentFinanceDTO();
 
-    public StudentFinance toFinanceEntity (StudentFinanceDTO studentFinanceDTO) {
-        StudentFinance studentFinance = new StudentFinance() ;
-        studentFinance.setStudentId(studentFinanceDTO.getStudentId());
-        studentFinance.setId(studentFinanceDTO.getId());
-        studentFinance.setIsPaid(studentFinanceDTO.getIsPaid());
-        studentFinance.setCost(studentFinanceDTO.getCost());
-        return studentFinance ;
+        dto.setId(studentFinance.getId());
+        dto.setStudentId(studentFinance.getStudentId());
+        dto.setIsPaid(studentFinance.getIsPaid());
+        dto.setCost(studentFinance.getCost());
+        dto.setCreated(studentFinance.getCreated());
+        dto.setUpdated(studentFinance.getUpdated());
 
+        return dto;
     }
 }
