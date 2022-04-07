@@ -2,20 +2,19 @@ package com.school.finance.domain;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Document("student_finance")
 @Data
 @RequiredArgsConstructor
-public class StudentFinance {
+public class StudentFinance implements Cloneable {
 
     @Id
     private String id;
@@ -29,11 +28,18 @@ public class StudentFinance {
 
     private Boolean isPaid;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime dateTime ;
+    @CreatedDate
+    private LocalDateTime created;
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updateTime ;
+    @LastModifiedDate
+    private LocalDateTime updated;
+
+    @Override
+    public StudentFinance clone() {
+        try {
+            return (StudentFinance) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }
