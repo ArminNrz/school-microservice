@@ -1,4 +1,4 @@
-package com.school.academic.service.higlevel;
+package com.school.academic.service.higlevel.lesson;
 
 import com.school.academic.domain.Lesson;
 import com.school.academic.domain.Unit;

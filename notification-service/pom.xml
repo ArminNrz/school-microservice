@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>academic-service</artifactId>
+    <artifactId>notification-service</artifactId>
 
     <build>
         <plugins>
@@ -43,25 +43,23 @@
             <scope>runtime</scope>
         </dependency>
         <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>amqp</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.school</groupId>
             <artifactId>base-common-layer</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.school</groupId>
-            <artifactId>clients</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.school</groupId>
-            <artifactId>amqp</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,6 @@
 server:
   port: 8080
 
-
 spring:
   web:
     resources:
@@ -17,8 +16,18 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: false
+  rabbitmq:
+    addresses: ${RABBIT_ADDRESS}
   application:
     name: academic-service
+
+academic:
+  rabbitMQ:
+    exchanges:
+      internal: internal.exchange
+    routing-keys:
+      internal-student-notification: internal.student.notification.routing-key
+
 
 logging:
   level:

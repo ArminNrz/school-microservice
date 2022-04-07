@@ -13,6 +13,7 @@
         <module>finance-service</module>
         <module>clients</module>
         <module>amqp</module>
+        <module>notification-service</module>
     </modules>
     <name>school-microservice</name>
 

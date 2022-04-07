@@ -1,0 +1,39 @@
+server:
+  port: 8082
+
+spring:
+  datasource:
+    url: jdbc:mysql://${NOTIF_DB_HOST}:${NOTIF_DB_PORT}/${NOTIF_DB}?createDatabaseIfNotExist=true
+    username: ${NOTIF_DB_USER}
+    password: ${NOTIF_DB_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+         dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: false
+  liquibase:
+    change-log: db/changelog/changelog-master.xml
+  rabbitmq:
+    addresses: ${RABBIT_ADDRESS}
+  application:
+    name: notification-service
+
+rabbitMQ:
+  exchanges:
+    internal: internal.exchange
+  queues:
+    student-notification: student.notification.queue
+  routing-keys:
+    internal-student-notification: internal.student.notification.routing-key
+
+notification:
+  language: fa
+
+logging:
+  level:
+    com:
+      school:
+        notification: debug
+    liquibase: info

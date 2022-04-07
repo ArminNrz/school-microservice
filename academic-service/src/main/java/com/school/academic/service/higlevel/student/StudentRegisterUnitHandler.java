@@ -1,11 +1,13 @@
-package com.school.academic.service.higlevel;
+package com.school.academic.service.higlevel.student;
 
+import com.school.academic.domain.Student;
 import com.school.academic.domain.Unit;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.entity.UnitService;
 import com.school.academic.service.entity.UnitStudentService;
+import com.school.academic.service.producer.StudentNotificationProducer;
 import com.school.academic.service.thirdparty.FinanceClientService;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class StudentRegisterUnitHandler {
     private final UnitService unitService;
     private final StudentService studentService;
     private final FinanceClientService financeClientService;
+    private final StudentNotificationProducer notificationProducer;
 
     public UnitStudentDTO register(UnitStudentRegistrationDTO registrationDTO) {
         log.debug("Request to register Unit: {}, for Student: {}", registrationDTO.getUnitId(), registrationDTO.getStudentId());
@@ -76,10 +79,13 @@ public class StudentRegisterUnitHandler {
     public StudentFinanceRegisterResponse endRegisterAndGetFinanceCode(Long id) {
         log.debug("Request to end register for student: {}, get fincance", id);
 
-        studentService.endRegistration(id);
+        Student student = studentService.endRegistration(id);
 
         BigDecimal pointSum = unitStudentService.getStudentUnitPointSum(id);
 
-        return financeClientService.register(id, pointSum);
+        StudentFinanceRegisterResponse response = financeClientService.register(id, pointSum);
+        notificationProducer.produce(student, pointSum);
+
+        return response;
     }
 }

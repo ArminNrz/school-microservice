@@ -7,7 +7,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(
         scanBasePackages = {
                 "com.school.academic",
-                "com.school.baseLayer"
+                "com.school.baseLayer",
+                "com.school.amqp"
         }
 )
 @EnableFeignClients(

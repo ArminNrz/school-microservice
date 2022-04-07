@@ -1,4 +1,4 @@
-package com.school.academic.service.higlevel;
+package com.school.academic.service.higlevel.student;
 
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.student.StudentFactorDTO;
