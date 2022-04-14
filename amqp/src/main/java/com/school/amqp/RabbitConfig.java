@@ -1,4 +1,4 @@
-package com.school.notification.config;
+package com.school.amqp;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -17,8 +17,14 @@ public class RabbitConfig {
     @Value("${rabbitmq.queues.student-notification}")
     private String studentNotificationQueue;
 
+    @Value("${rabbitMQ.queues.student-notification-pre}")
+    private String studentNotificationPreQueue;
+
     @Value("${rabbitmq.routing-keys.internal-student-notification}")
     private String internalStudentNotificationRoutingKey;
+
+    @Value("${rabbitMQ.routing-keys.internal-student-notification-pre}")
+    private String internalStudentNotificationPreRoutingKey;
 
     @Bean
     public TopicExchange internalTopicExchange() {
@@ -31,10 +37,23 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue studentNotificationPreQueue() {
+        return new Queue(this.studentNotificationPreQueue);
+    }
+
+    @Bean
     public Binding internalToStudentNotificationBinding() {
         return BindingBuilder
                 .bind(studentNotificationQueue())
                 .to(internalTopicExchange())
                 .with(this.internalStudentNotificationRoutingKey);
+    }
+
+    @Bean
+    public Binding internalToStudentNotificationPreBinding() {
+        return BindingBuilder
+                .bind(studentNotificationPreQueue())
+                .to(internalTopicExchange())
+                .with(this.internalStudentNotificationPreRoutingKey);
     }
 }

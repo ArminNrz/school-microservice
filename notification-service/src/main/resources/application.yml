@@ -25,8 +25,10 @@ rabbitMQ:
     internal: internal.exchange
   queues:
     student-notification: student.notification.queue
+    student-notification-pre: student.notification.pre.queue
   routing-keys:
     internal-student-notification: internal.student.notification.routing-key
+    internal-student-notification-pre: internal.student.notification.pre.routing-key
 
 notification:
   language: fa
