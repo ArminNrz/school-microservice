@@ -1,5 +1,6 @@
 package com.school.finance.mapper;
 
+import com.school.amqp.dto.student.StudentPaymentNotificationDTO;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
@@ -44,5 +45,15 @@ public class StudentFinanceMapper {
         dto.setUpdated(studentFinance.getUpdated());
 
         return dto;
+    }
+
+    public StudentPaymentNotificationDTO toEvent(StudentFinance entity) {
+        StudentPaymentNotificationDTO event = new StudentPaymentNotificationDTO();
+
+        event.setStudentId(entity.getStudentId());
+        event.setPointSum(entity.getPointSum());
+        event.setInvoiceCode(entity.getId());
+
+        return event;
     }
 }
