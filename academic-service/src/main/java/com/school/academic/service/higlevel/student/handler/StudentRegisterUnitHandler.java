@@ -1,4 +1,4 @@
-package com.school.academic.service.higlevel.student;
+package com.school.academic.service.higlevel.student.handler;
 
 import com.school.academic.domain.Student;
 import com.school.academic.domain.Unit;
@@ -7,7 +7,7 @@ import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.entity.UnitService;
 import com.school.academic.service.entity.UnitStudentService;
-import com.school.academic.service.producer.StudentNotificationProducer;
+import com.school.academic.service.jms.producer.StudentNotificationProducer;
 import com.school.academic.service.thirdparty.FinanceClientService;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
@@ -84,7 +84,7 @@ public class StudentRegisterUnitHandler {
         BigDecimal pointSum = unitStudentService.getStudentUnitPointSum(id);
 
         StudentFinanceRegisterResponse response = financeClientService.register(id, pointSum);
-        notificationProducer.produce(student, pointSum);
+        notificationProducer.produceEndTermNotification(student, pointSum);
 
         return response;
     }
