@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(
         scanBasePackages = {
                 "com.school.finance",
-                "com.school.baseLayer"
+                "com.school.baseLayer",
+                "com.school.amqp"
         }
 )
 public class FinanceApp {
