@@ -1,4 +1,4 @@
-package com.school.academic.service.higlevel.student;
+package com.school.academic.service.higlevel.student.handler;
 
 
 import com.school.academic.domain.Student;

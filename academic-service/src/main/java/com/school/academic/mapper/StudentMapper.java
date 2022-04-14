@@ -6,6 +6,7 @@ import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.student.StudentFactorDTO;
 import com.school.amqp.dto.student.StudentNotificationDTO;
+import com.school.amqp.dto.student.StudentPaymentNotificationDTO;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import org.springframework.stereotype.Component;
 
@@ -63,5 +64,17 @@ public class StudentMapper {
         notificationDTO.setPhoneNumber(student.getPhoneNumber());
         notificationDTO.setPointSum(pointSum);
         return notificationDTO;
+    }
+
+    public StudentPaymentNotificationDTO toPaymentEvent(Student student, BigDecimal pointSum, String invoiceCode) {
+        StudentPaymentNotificationDTO event = new StudentPaymentNotificationDTO();
+
+        event.setFirstName(student.getFirstName());
+        event.setLastName(student.getLastName());
+        event.setPhoneNumber(student.getPhoneNumber());
+        event.setPointSum(pointSum);
+        event.setInvoiceCode(invoiceCode);
+
+        return event;
     }
 }
