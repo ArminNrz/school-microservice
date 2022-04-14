@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -46,5 +47,10 @@ public class StudentFinanceController {
         paymentDTO.setStudentId(studentId);
         StudentFinanceDTO updatedFactor = paymentServiceHandler.payment(paymentDTO) ;
         return ResponseEntity.ok(updatedFactor) ;
+    }
+    @GetMapping("/paid-factors")
+    public ResponseEntity<List<StudentFinanceRegisterResponse>> getPaidFactors() {
+        log.info("Rest request to get Paid factors .");
+        return ResponseEntity.ok(service.getFactorsByStatus(true)) ;
     }
 }

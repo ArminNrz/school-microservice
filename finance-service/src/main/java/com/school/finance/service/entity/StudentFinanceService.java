@@ -4,6 +4,7 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.dto.StudentFinanceDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.repository.StudentFinanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,9 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -61,6 +64,12 @@ public class StudentFinanceService {
         log.debug("Request to update StudentFinance: {}", studentFinance);
         repository.save(studentFinance);
         log.debug("Updated StudentFinance: {}", studentFinance);
+    }
+    public List<StudentFinanceRegisterResponse> getFactorsByStatus(Boolean status) {
+        log.debug("Request to get paid factors with paid Status : {}" , status);
+        List<StudentFinance> studentFinances = repository.findByIsPaid(status) ;
+        log.debug("All factors with the status : {} are : {}",status,studentFinances);
+        return studentFinances.stream().map(mapper::toResponse).collect(Collectors.toList()) ;
     }
 
 }

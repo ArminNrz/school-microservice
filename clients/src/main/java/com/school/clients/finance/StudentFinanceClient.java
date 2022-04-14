@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @FeignClient(
         name = "studentFinance",
         url = "${clients.finance.url}"
@@ -20,5 +22,8 @@ public interface StudentFinanceClient {
 
     @GetMapping("/api/finance/students/{studentId}")
     StudentFactorResponse getFactor(@PathVariable("studentId") Long id);
+
+    @GetMapping("/api/finance/students/paid-factors")
+    List<StudentFinanceRegisterResponse> getPaidFactors() ;
 
 }

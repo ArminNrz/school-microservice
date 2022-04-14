@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -62,5 +63,11 @@ public class StudentController {
         log.info("Rest Request to get factor by nationalCode: {}" , nationalCode);
         StudentFactorDTO factor = studentUnitManagementService.getFactor(nationalCode) ;
         return ResponseEntity.ok(factor) ;
+    }
+    @GetMapping("/no-debt-students")
+    public ResponseEntity<List<StudentFactorDTO>> getNoDebtStudents() {
+        log.info("Rest request to get no debt students with details .");
+        List<StudentFactorDTO> list = studentUnitManagementService.getNoDebtStudents() ;
+        return ResponseEntity.ok(list);
     }
 }

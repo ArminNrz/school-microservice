@@ -9,11 +9,13 @@ import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.entity.UnitStudentService;
 import com.school.academic.service.thirdparty.FinanceClientService;
 import com.school.clients.finance.dto.StudentFactorResponse;
+import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -38,5 +40,20 @@ public class StudentFactorHandler {
         dto.setInvoiceCode(factorResponse.getInvoiceCode());
         dto.setCost(factorResponse.getCost());
         return dto ;
+    }
+    public List<StudentFactorDTO> getNoDebtStudents() {
+        log.debug("request to get no debt Students ");
+        List<StudentFinanceRegisterResponse> list = financeClientService.getPaidFactors() ;
+        List<StudentFactorDTO> studentFactorDTOS = new ArrayList<>() ;
+        for(StudentFinanceRegisterResponse sf : list) {
+            Student student = studentService.findById(sf.getStudentId()) ;
+            StudentFactorDTO studentFactorDTO = mapper.toFactorDTO(student) ;
+            studentFactorDTO.setInvoiceCode(sf.getInvoiceCode());
+            studentFactorDTO.setPointSum(unitStudentService.getStudentUnitPointSum(sf.getStudentId()));
+            studentFactorDTO.setUnitList(unitStudentService.getStudentUnitDetails(sf.getStudentId()));
+            studentFactorDTO.setCost(BigDecimal.ZERO);
+            studentFactorDTOS.add(studentFactorDTO);
+        }
+        return studentFactorDTOS ;
     }
 }
