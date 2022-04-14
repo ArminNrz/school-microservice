@@ -10,12 +10,12 @@ import com.school.amqp.dto.student.*;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class RabbitConsumer {
+public class StudentNotificationConsumer {
 
     private final StudentNotificationService notificationService;
 
     @RabbitListener(queues = "${rabbitmq.queues.student-notification}")
-    public void consumeStudentNotification(StudentNotificationDTO notificationDTO) {
+    public void consumeStudentNotification(StudentPaymentNotificationDTO notificationDTO) {
         log.info("Consumed {}, from student notification queue", notificationDTO);
         notificationService.send(notificationDTO);
     }
