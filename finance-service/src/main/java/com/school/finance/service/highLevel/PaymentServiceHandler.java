@@ -6,6 +6,7 @@ import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.service.entity.StudentFinanceService;
 import com.school.finance.service.entity.StudentPaymentService;
+import com.school.finance.service.produce.StudentFinanceProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,7 @@ public class PaymentServiceHandler {
     private final StudentFinanceService studentFinanceService;
     private final StudentPaymentService studentPaymentService;
     private final StudentFinanceMapper studentFinanceMapper;
+    private final StudentFinanceProducer studentFinanceProducer;
 
     @Transactional
     public StudentFinanceDTO payment(StudentFinancePaymentDTO paymentDTO) {
@@ -65,5 +67,7 @@ public class PaymentServiceHandler {
         studentFinanceService.updateFactor(studentFinance);
         studentPaymentService.addPayment(studentFinance, oldStudentFinance, amount);
         log.debug("StudentFinance: {}, is paid with amount: {}", studentFinance.getId(), amount);
+
+        studentFinanceProducer.produceToStudentNotificationPreQueue(studentFinance);
     }
 }
