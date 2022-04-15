@@ -39,7 +39,7 @@ public class StudentService {
         Optional<Student> studentOptional = repository.findByNationalCode(nationalCode);
         if (studentOptional.isEmpty()) {
             log.error("No such student exist with nationalCode: {}", nationalCode);
-            return null;
+            throw Problem.valueOf(Status.NOT_FOUND , " No Student found by this nationalCode ") ;
         }
 
         return studentOptional.get();

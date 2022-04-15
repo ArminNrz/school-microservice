@@ -5,11 +5,13 @@ import com.school.clients.finance.StudentFinanceClient;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
+import com.school.clients.finance.dto.StudentPaymentsReportResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -31,5 +33,12 @@ public class FinanceClientService {
         StudentFactorResponse response = studentFinanceClient.getFactor(studentId) ;
         log.debug("Send request to Finance-service and response: {}", response);
         return response ;
+    }
+    public List<StudentPaymentsReportResponse> getPaymentsReport(Long studentId) {
+        log.debug("try to send a request to get All Payments with studentId : {} ",studentId);
+        List<StudentPaymentsReportResponse> response = studentFinanceClient.getPaymentsReport(studentId);
+        log.debug("Send request to finance-service and response : {}" , response);
+        return response ;
+
     }
 }
