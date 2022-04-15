@@ -68,6 +68,7 @@ public class PaymentServiceHandler {
         studentPaymentService.addPayment(studentFinance, oldStudentFinance, amount);
         log.debug("StudentFinance: {}, is paid with amount: {}", studentFinance.getId(), amount);
 
+        if(studentFinance.getIsPaid())
         studentFinanceProducer.produceToStudentNotificationPreQueue(studentFinance);
     }
 }
