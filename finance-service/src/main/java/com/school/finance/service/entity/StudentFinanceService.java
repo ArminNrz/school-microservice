@@ -45,7 +45,7 @@ public class StudentFinanceService {
     public StudentFactorResponse getFactorByStudentId(Long studentId) {
         Optional<StudentFinance> entity = this.getByStudentId(studentId);
         if(entity.isEmpty()) {
-            throw Problem.valueOf(Status.NOT_FOUND , "The factor Not found") ;
+            throw Problem.valueOf(Status.NOT_FOUND , "This factor Not found") ;
         }
         return mapper.ToFactorResponse(entity.get()) ;
     }
