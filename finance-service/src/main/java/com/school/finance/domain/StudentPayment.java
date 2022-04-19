@@ -15,14 +15,15 @@ import java.time.LocalDateTime;
 public class StudentPayment {
 
     @Id
-    private String id ;
+    private String id;
 
-    private String studentFinanceId ;
-    private BigDecimal initialCost ;
-    private BigDecimal amount ;
-    private BigDecimal newCost ;
+    private BigDecimal initialCost;
+
+    private BigDecimal amount;
+
+    private BigDecimal newCost;
 
     @CreatedDate
-    private LocalDateTime createDateTime;
+    private LocalDateTime created;
 
 }
