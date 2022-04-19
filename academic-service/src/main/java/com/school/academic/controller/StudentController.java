@@ -50,7 +50,6 @@ public class StudentController {
         return ResponseEntity.ok(studentUnitManagementService.getDetailsByNationalCode(nationalCode));
     }
 
-    //todo: end getting unit (In this API want do not let student to register any unit and after send request to finance service to register student invoice) PUT /{id}/end-register
     @PutMapping("/{id}/end-register")
     public ResponseEntity<StudentFinanceRegisterResponse> endRegisteration(@PathVariable(name = "id") Long id) {
         log.info("REST request to end register for Student: {}", id);
