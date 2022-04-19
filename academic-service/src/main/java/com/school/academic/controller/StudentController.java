@@ -1,21 +1,29 @@
 package com.school.academic.controller;
 
+import com.school.academic.domain.Student;
 import com.school.academic.dto.student.StudentCreateDTO;
-import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.student.StudentFactorDTO;
 import com.school.academic.dto.unit.student.UnitStudentDTO;
 import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.student.StudentUnitManagementService;
+import com.school.clients.academic.StudentDTO;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.kaczmarzyk.spring.data.jpa.domain.Equal;
+import net.kaczmarzyk.spring.data.jpa.web.annotation.Spec;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -32,8 +40,6 @@ public class StudentController {
         StudentDTO result = service.create(createDTO);
         return ResponseEntity.created(URI.create("/api/academic/students")).body(result);
     }
-
-    //todo: update student names
 
     @PutMapping("/{id}/unit")
     public ResponseEntity<UnitStudentDTO> register(
@@ -56,10 +62,20 @@ public class StudentController {
         StudentFinanceRegisterResponse result = studentUnitManagementService.endRegisterAndGetFinanceCode(id);
         return ResponseEntity.ok(result);
     }
+
     @GetMapping("{nationalCode}/get-factor")
     public ResponseEntity<StudentFactorDTO> getFactor (@PathVariable("nationalCode") Long nationalCode) {
         log.info("Rest Request to get factor by nationalCode: {}" , nationalCode);
         StudentFactorDTO factor = studentUnitManagementService.getFactor(nationalCode) ;
         return ResponseEntity.ok(factor) ;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudentDTO>> getByAccessRegister(
+            @Spec(path = "accessUnitRegistration", spec = Equal.class) Specification<Student> studentSpecification,
+            @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable
+            ) {
+        log.info("REST request to get students, with: specification: {}, pageable: {}", studentSpecification, pageable);
+        return ResponseEntity.ok().body(service.getAll(studentSpecification, pageable));
     }
 }

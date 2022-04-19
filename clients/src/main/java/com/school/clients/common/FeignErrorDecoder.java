@@ -1,4 +1,4 @@
-package com.school.clients.finance;
+package com.school.clients.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.school.clients.exception.ExceptionMessage;

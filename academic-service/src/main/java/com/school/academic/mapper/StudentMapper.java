@@ -2,7 +2,7 @@ package com.school.academic.mapper;
 
 import com.school.academic.domain.Student;
 import com.school.academic.dto.student.StudentCreateDTO;
-import com.school.academic.dto.student.StudentDTO;
+import com.school.clients.academic.StudentDTO;
 import com.school.academic.dto.student.StudentDetailsDTO;
 import com.school.academic.dto.student.StudentFactorDTO;
 import com.school.amqp.dto.student.StudentNotificationDTO;
