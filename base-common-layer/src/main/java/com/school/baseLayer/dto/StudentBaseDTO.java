@@ -19,6 +19,6 @@ public abstract class StudentBaseDTO implements Serializable {
     private Long nationalCode;
 
     public String toString() {
-        return "StudentBaseDTO(firstName=" + this.getFirstName() + ", lastName=" + this.getLastName() + ", nationalCode=" + this.getNationalCode() + ")";
+        return "firstName=" + this.getFirstName() + ", lastName=" + this.getLastName() + ", nationalCode=" + this.getNationalCode();
     }
 }

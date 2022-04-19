@@ -11,8 +11,8 @@ public class StudentDTO extends StudentBaseDTO {
 
     @Override
     public String toString() {
-        return "StudentDTO{" +
-                "id=" + id +
+        return "StudentDTO {" +
+                "id=" + id + ", " +
                 super.toString() +
                 '}';
     }
