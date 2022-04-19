@@ -1,6 +1,7 @@
 package com.school.finance.service.highLevel;
 
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.domain.StudentPayment;
 import com.school.finance.dto.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
@@ -64,8 +65,9 @@ public class PaymentServiceHandler {
             studentFinance.setCost(factorCost.subtract(amount));
         }
 
-        studentFinanceService.updateFactor(studentFinance);
-        studentPaymentService.addPayment(studentFinance, oldStudentFinance, amount);
+        StudentPayment studentPayment = studentPaymentService.addPayment(studentFinance, oldStudentFinance, amount);
+        studentFinanceService.update(studentFinance, studentPayment);
+
         log.debug("StudentFinance: {}, is paid with amount: {}", studentFinance.getId(), amount);
 
         if(studentFinance.getIsPaid())

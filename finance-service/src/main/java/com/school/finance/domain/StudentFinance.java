@@ -6,10 +6,12 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document("student_finance")
 @Data
@@ -27,6 +29,9 @@ public class StudentFinance implements Cloneable {
     private BigDecimal cost;
 
     private Boolean isPaid;
+
+    @DBRef
+    private List<StudentPayment> studentPayments;
 
     @CreatedDate
     private LocalDateTime created;

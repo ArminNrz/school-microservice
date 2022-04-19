@@ -4,6 +4,7 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
+import com.school.finance.domain.StudentPayment;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.repository.StudentFinanceRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,8 @@ import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,10 +60,19 @@ public class StudentFinanceService {
         return studentFinance;
     }
 
-    public void updateFactor(StudentFinance studentFinance) {
-        log.debug("Request to update StudentFinance: {}", studentFinance);
-        repository.save(studentFinance);
-        log.debug("Updated StudentFinance: {}", studentFinance);
-    }
+    public void update(StudentFinance studentFinance, StudentPayment studentPayment) {
+        log.debug("Request to update Student Finance entity, studentFinance: {}, studentPayment: {}", studentFinance, studentPayment);
 
+        if (studentFinance.getStudentPayments() == null) {
+            List<StudentPayment> payments = new ArrayList<>();
+            payments.add(studentPayment);
+            studentFinance.setStudentPayments(payments);
+        }
+        else {
+            studentFinance.getStudentPayments().add(studentPayment);
+        }
+
+        repository.save(studentFinance);
+        log.debug("Updated studentFinance entity: {}", studentFinance);
+    }
 }

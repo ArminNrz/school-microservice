@@ -16,16 +16,16 @@ public class StudentPaymentService {
 
     private final StudentPaymentRepository repository;
 
-    public void addPayment(StudentFinance newFinance, StudentFinance oldFinance, BigDecimal amount) {
+    public StudentPayment addPayment(StudentFinance newFinance, StudentFinance oldFinance, BigDecimal amount) {
         log.debug("addPayment(), newFinance: {}, oldFinance: {}", newFinance, oldFinance);
 
         StudentPayment entity = new StudentPayment();
 
         entity.setInitialCost(oldFinance.getCost());
-        entity.setStudentFinanceId(oldFinance.getId());
         entity.setAmount(amount);
         entity.setNewCost(newFinance.getCost());
 
         repository.insert(entity);
+        return entity;
     }
  }

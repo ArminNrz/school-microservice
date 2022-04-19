@@ -7,27 +7,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentPaymentMapper {
 
-    public StudentPayment toEntity (StudentPaymentDTO studentPaymentDTO) {
+    public StudentPaymentDTO toDTO(StudentPayment entity) {
+        StudentPaymentDTO dto = new StudentPaymentDTO();
 
-        StudentPayment studentPayment = new StudentPayment() ;
-        studentPayment.setAmount(studentPaymentDTO.getAmount());
-        studentPayment.setStudentFinanceId(studentPaymentDTO.getStudentFinanceId());
-        studentPayment.setInitialCost(studentPaymentDTO.getInitialCost());
-        studentPayment.setNewCost(studentPaymentDTO.getNewCost());
+        dto.setId(entity.getId());
+        dto.setAmount(entity.getAmount());
+        dto.setCreated(entity.getCreated());
 
-        return studentPayment ;
-
-    }
-
-    public StudentPaymentDTO toDTO (StudentPayment studentPayment) {
-
-        StudentPaymentDTO studentPaymentDTO = new StudentPaymentDTO() ;
-        studentPaymentDTO.setId(studentPayment.getId());
-        studentPaymentDTO.setAmount(studentPayment.getAmount());
-        studentPaymentDTO.setInitialCost(studentPayment.getInitialCost());
-        studentPaymentDTO.setNewCost(studentPayment.getNewCost());
-
-        return studentPaymentDTO ;
+        return dto;
     }
 
 }
