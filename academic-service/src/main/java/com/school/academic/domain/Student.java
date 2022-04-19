@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -19,7 +20,7 @@ import java.util.Set;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Student {
+public class Student implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

@@ -5,6 +5,7 @@ import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
+import com.school.finance.dto.student.StudentPayedDTO;
 import com.school.finance.service.entity.StudentFinanceService;
 import com.school.finance.service.highLevel.PaymentServiceManager;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -46,5 +48,12 @@ public class StudentFinanceController {
         paymentDTO.setStudentId(studentId);
         StudentFinanceDTO updatedFactor = paymentServiceManager.payment(paymentDTO) ;
         return ResponseEntity.ok(updatedFactor) ;
+    }
+
+    @GetMapping("/paid")
+    public ResponseEntity<List<StudentPayedDTO>> getPaid(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+        log.info("REST request to get paid student list, page: {}, size: {}", page, size);
+        List<StudentPayedDTO> result = service.getPaid(page, size);
+        return ResponseEntity.ok().body(result);
     }
 }

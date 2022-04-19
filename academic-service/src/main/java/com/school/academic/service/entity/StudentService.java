@@ -2,16 +2,20 @@ package com.school.academic.service.entity;
 
 import com.school.academic.domain.Student;
 import com.school.academic.dto.student.StudentCreateDTO;
-import com.school.academic.dto.student.StudentDTO;
 import com.school.academic.mapper.StudentMapper;
 import com.school.academic.repository.StudentRepository;
+import com.school.clients.academic.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -71,5 +75,12 @@ public class StudentService {
 
         log.debug("End registration for Student: {}", id);
         return foundStudent;
+    }
+
+    public List<StudentDTO> getAll(Specification<Student> specification, Pageable pageable) {
+
+        return repository.findAll(specification, pageable)
+                .map(mapper::toDTO)
+                .stream().collect(Collectors.toList());
     }
 }
