@@ -2,7 +2,7 @@ package com.school.finance.service.highLevel;
 
 import com.school.finance.domain.StudentFinance;
 import com.school.finance.domain.StudentPayment;
-import com.school.finance.dto.StudentFinanceDTO;
+import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.service.entity.StudentFinanceService;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class PaymentServiceHandler {
+public class PaymentServiceManager {
 
     private final StudentFinanceService studentFinanceService;
     private final StudentPaymentService studentPaymentService;

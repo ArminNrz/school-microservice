@@ -5,8 +5,8 @@ import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
-import com.school.finance.dto.StudentFinanceDTO;
-import com.school.finance.dto.StudentPaymentDTO;
+import com.school.finance.dto.student.StudentFinanceDTO;
+import com.school.finance.dto.student.payment.StudentPaymentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

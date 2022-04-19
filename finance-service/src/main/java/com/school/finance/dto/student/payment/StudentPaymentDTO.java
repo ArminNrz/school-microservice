@@ -1,4 +1,4 @@
-package com.school.finance.dto;
+package com.school.finance.dto.student.payment;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

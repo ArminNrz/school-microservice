@@ -1,5 +1,6 @@
-package com.school.finance.dto;
+package com.school.finance.dto.student;
 
+import com.school.finance.dto.student.payment.StudentPaymentDTO;
 import lombok.Data;
 
 import java.math.BigDecimal;
