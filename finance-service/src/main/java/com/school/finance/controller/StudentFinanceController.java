@@ -3,10 +3,10 @@ package com.school.finance.controller;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
-import com.school.finance.dto.StudentFinanceDTO;
+import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.service.entity.StudentFinanceService;
-import com.school.finance.service.highLevel.PaymentServiceHandler;
+import com.school.finance.service.highLevel.PaymentServiceManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ import java.net.URI;
 public class StudentFinanceController {
 
     private final StudentFinanceService service;
-    private final PaymentServiceHandler paymentServiceHandler;
+    private final PaymentServiceManager paymentServiceManager;
 
     @PostMapping
     public ResponseEntity<StudentFinanceRegisterResponse> register(@RequestBody StudentFinanceRegisterRequest registerRequest) {
@@ -44,7 +44,7 @@ public class StudentFinanceController {
     ) {
         log.info("Rest Request to get factor By studentId : {}" , studentId);
         paymentDTO.setStudentId(studentId);
-        StudentFinanceDTO updatedFactor = paymentServiceHandler.payment(paymentDTO) ;
+        StudentFinanceDTO updatedFactor = paymentServiceManager.payment(paymentDTO) ;
         return ResponseEntity.ok(updatedFactor) ;
     }
 }

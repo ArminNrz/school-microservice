@@ -1,7 +1,7 @@
 package com.school.finance.mapper;
 
 import com.school.finance.domain.StudentPayment;
-import com.school.finance.dto.StudentPaymentDTO;
+import com.school.finance.dto.student.payment.StudentPaymentDTO;
 import org.springframework.stereotype.Component;
 
 @Component
