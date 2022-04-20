@@ -20,6 +20,7 @@ public class StudentMapper {
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
         entity.setNationalCode(dto.getNationalCode());
+        entity.setPhoneNumber(dto.getPhoneNumber());
         entity.setAccessUnitRegistration(true);
         return entity;
     }
@@ -30,6 +31,7 @@ public class StudentMapper {
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setNationalCode(entity.getNationalCode());
+        dto.setPhoneNumber(entity.getPhoneNumber());
         return dto;
     }
 
