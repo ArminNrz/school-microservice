@@ -13,6 +13,8 @@ import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.zalando.problem.Problem;
+import org.zalando.problem.Status;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -30,7 +32,10 @@ public class StudentFactorHandler {
 
     public StudentFactorDTO getFactorByNationalCode (Long nationalCode) {
         log.debug("Request to get factor By nationalCode : {}" ,nationalCode);
-        Student student = studentService.getByNationalCode(nationalCode) ;
+        Student student = studentService.getByNationalCode(nationalCode);
+        if (student == null) {
+            throw Problem.valueOf(Status.NOT_FOUND, "No such student exist");
+        }
         StudentFactorDTO dto = mapper.toFactorDTO(student) ;
         BigDecimal pointSum = unitStudentService.getStudentUnitPointSum(student.getId()) ;
         dto.setPointSum(pointSum);

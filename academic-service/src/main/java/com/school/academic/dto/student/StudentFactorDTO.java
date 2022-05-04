@@ -2,6 +2,7 @@ package com.school.academic.dto.student;
 
 
 import com.school.academic.dto.unit.student.UnitStudentDetail;
+import com.school.baseLayer.dto.StudentBaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

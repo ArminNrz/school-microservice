@@ -1,15 +1,25 @@
 package com.school.finance.mapper;
 
 import com.school.amqp.dto.student.StudentPaymentNotificationDTO;
+import com.school.clients.academic.StudentDTO;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.finance.domain.StudentFinance;
-import com.school.finance.dto.StudentFinanceDTO;
+import com.school.finance.dto.student.StudentFinanceDTO;
+import com.school.finance.dto.student.StudentPayedDTO;
+import com.school.finance.dto.student.payment.StudentPaymentDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
+@RequiredArgsConstructor
 public class StudentFinanceMapper {
+
+    private final StudentPaymentMapper studentPaymentMapper;
 
     public StudentFinance toEntity(StudentFinanceRegisterRequest request) {
         StudentFinance entity = new StudentFinance();
@@ -44,6 +54,11 @@ public class StudentFinanceMapper {
         dto.setCreated(studentFinance.getCreated());
         dto.setUpdated(studentFinance.getUpdated());
 
+        List<StudentPaymentDTO> studentPaymentDTOList = studentFinance.getStudentPayments().stream()
+                .map(studentPaymentMapper::toDTO)
+                .collect(Collectors.toList());
+        dto.setPaymentDetails(studentPaymentDTOList);
+
         return dto;
     }
 
@@ -55,5 +70,21 @@ public class StudentFinanceMapper {
         event.setInvoiceCode(entity.getId());
 
         return event;
+    }
+
+    public StudentPayedDTO toPaidDTO(StudentFinance studentFinance, StudentDTO studentDTO) {
+        StudentPayedDTO dto = new StudentPayedDTO();
+
+        if (studentFinance.getStudentPayments() != null) {
+            List<StudentPaymentDTO> studentPaymentDTOList = studentFinance.getStudentPayments().stream()
+                    .map(studentPaymentMapper::toDTO)
+                    .collect(Collectors.toList());
+            dto.setPaymentDetails(studentPaymentDTOList);
+        }
+        dto.setFirstName(studentDTO.getFirstName());
+        dto.setLastName(studentDTO.getLastName());
+        dto.setNationalCode(studentDTO.getNationalCode());
+
+        return dto;
     }
 }

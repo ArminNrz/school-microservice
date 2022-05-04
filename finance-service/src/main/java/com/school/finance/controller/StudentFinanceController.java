@@ -3,10 +3,11 @@ package com.school.finance.controller;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
-import com.school.finance.dto.StudentFinanceDTO;
+import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
+import com.school.finance.dto.student.StudentPayedDTO;
 import com.school.finance.service.entity.StudentFinanceService;
-import com.school.finance.service.highLevel.PaymentServiceHandler;
+import com.school.finance.service.highLevel.PaymentServiceManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ import java.util.List;
 public class StudentFinanceController {
 
     private final StudentFinanceService service;
-    private final PaymentServiceHandler paymentServiceHandler;
+    private final PaymentServiceManager paymentServiceManager;
 
     @PostMapping
     public ResponseEntity<StudentFinanceRegisterResponse> register(@RequestBody StudentFinanceRegisterRequest registerRequest) {
@@ -45,12 +46,15 @@ public class StudentFinanceController {
     ) {
         log.info("Rest Request to get factor By studentId : {}" , studentId);
         paymentDTO.setStudentId(studentId);
-        StudentFinanceDTO updatedFactor = paymentServiceHandler.payment(paymentDTO) ;
+        StudentFinanceDTO updatedFactor = paymentServiceManager.payment(paymentDTO) ;
         return ResponseEntity.ok(updatedFactor) ;
     }
-    @GetMapping("/paid-factors")
-    public ResponseEntity<List<StudentFinanceRegisterResponse>> getPaidFactors() {
-        log.info("Rest request to get Paid factors .");
-        return ResponseEntity.ok(service.getFactorsByStatus(true)) ;
+
+    @GetMapping("/paid")
+    public ResponseEntity<List<StudentPayedDTO>> getPaid(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+        log.info("REST request to get paid student list, page: {}, size: {}", page, size);
+        List<StudentPayedDTO> result = service.getPaid(page, size);
+        return ResponseEntity.ok().body(result);
+
     }
 }

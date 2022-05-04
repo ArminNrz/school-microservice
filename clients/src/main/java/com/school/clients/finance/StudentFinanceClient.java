@@ -1,5 +1,6 @@
 package com.school.clients.finance;
 
+import com.school.clients.config.FeignConfiguration;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
@@ -13,7 +14,8 @@ import java.util.List;
 
 @FeignClient(
         name = "studentFinance",
-        url = "${clients.finance.url}"
+        url = "${clients.finance.url}",
+        configuration = FeignConfiguration.class
 )
 public interface StudentFinanceClient {
 
