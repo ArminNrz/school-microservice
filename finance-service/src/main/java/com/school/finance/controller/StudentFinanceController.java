@@ -1,12 +1,11 @@
 package com.school.finance.controller;
 
-import com.school.clients.finance.dto.StudentFactorResponse;
-import com.school.clients.finance.dto.StudentFinanceRegisterRequest;
-import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
+import com.school.clients.finance.dto.*;
 import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.dto.student.StudentPayedDTO;
 import com.school.finance.service.entity.StudentFinanceService;
+import com.school.finance.service.entity.StudentWalletService;
 import com.school.finance.service.highLevel.PaymentServiceManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +23,7 @@ public class StudentFinanceController {
 
     private final StudentFinanceService service;
     private final PaymentServiceManager paymentServiceManager;
+    private final StudentWalletService walletService ;
 
     @PostMapping
     public ResponseEntity<StudentFinanceRegisterResponse> register(@RequestBody StudentFinanceRegisterRequest registerRequest) {
@@ -55,5 +55,13 @@ public class StudentFinanceController {
         log.info("REST request to get paid student list, page: {}, size: {}", page, size);
         List<StudentPayedDTO> result = service.getPaid(page, size);
         return ResponseEntity.ok().body(result);
+    }
+
+    @PostMapping("{studentId}/create-wallet")
+    public ResponseEntity<StudentWalletResponse> createWallet(@PathVariable Long studentId) {
+        log.info("Rest request to create Wallet for student : {} " , studentId);
+        StudentWalletResponse response = walletService.create(studentId) ;
+        return ResponseEntity.ok(response);
+
     }
 }

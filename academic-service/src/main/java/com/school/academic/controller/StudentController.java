@@ -10,6 +10,7 @@ import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.student.StudentUnitManagementService;
 import com.school.clients.academic.StudentDTO;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
+import com.school.clients.finance.dto.StudentWalletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.kaczmarzyk.spring.data.jpa.domain.Equal;
@@ -34,11 +35,19 @@ public class StudentController {
     private final StudentService service;
     private final StudentUnitManagementService studentUnitManagementService;
 
+
     @PostMapping
     public ResponseEntity<StudentDTO> create(@Valid @RequestBody StudentCreateDTO createDTO) {
         log.info("REST request to create Student: {}", createDTO);
         StudentDTO result = service.create(createDTO);
         return ResponseEntity.created(URI.create("/api/academic/students")).body(result);
+    }
+
+    @PutMapping("/{studentId}/create-wallet")
+    public ResponseEntity<StudentWalletResponse> createWallet(@PathVariable("studentId") Long studentId) {
+        log.info("Rest request to create wallet for student : {} " , studentId);
+        StudentWalletResponse response = studentUnitManagementService.createWallet(studentId) ;
+        return ResponseEntity.ok(response) ;
     }
 
     @PutMapping("/{id}/unit")

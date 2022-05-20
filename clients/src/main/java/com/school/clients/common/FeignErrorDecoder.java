@@ -32,6 +32,8 @@ public class FeignErrorDecoder implements ErrorDecoder {
                 return Problem.valueOf(Status.BAD_REQUEST, message.getDetail() != null ? message.getDetail() : "Bad Request");
             case 404:
                 return Problem.valueOf(Status.NOT_FOUND, message.getDetail() != null ? message.getDetail() : "Not found");
+            case 403 :
+                return Problem.valueOf(Status.FORBIDDEN , message.getDetail() != null ? message.getDetail() : " Forbidden ") ;
             default:
                 return errorDecoder.decode(methodKey, response);
         }

@@ -38,6 +38,9 @@ public class Student implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name= "wallet_Id")
+    private String walletId ;
+
     @OneToMany(mappedBy = "student")
     @ToString.Exclude
     private Set<UnitStudent> unitStudents = new LinkedHashSet<>();
