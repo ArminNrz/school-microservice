@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.spi.ResolveResult;
 import java.net.URI;
 import java.util.List;
 
@@ -62,6 +63,13 @@ public class StudentFinanceController {
         log.info("Rest request to create Wallet for student : {} " , studentId);
         StudentWalletResponse response = walletService.create(studentId) ;
         return ResponseEntity.ok(response);
+
+    }
+
+    @PostMapping("/charge-wallet")
+    public ResponseEntity<ChargeWalletResponse> chargeWallet(@RequestBody ChargeWalletRequest request) {
+        log.info("Rest request to charge the wallet : {}" , request);
+        return ResponseEntity.ok(paymentServiceManager.chargeWallet(request));
 
     }
 }

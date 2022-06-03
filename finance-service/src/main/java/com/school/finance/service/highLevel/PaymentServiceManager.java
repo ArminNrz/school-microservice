@@ -1,12 +1,18 @@
 package com.school.finance.service.highLevel;
 
+import com.school.clients.finance.dto.ChargeWalletRequest;
+import com.school.clients.finance.dto.ChargeWalletResponse;
 import com.school.finance.domain.StudentFinance;
 import com.school.finance.domain.StudentPayment;
+import com.school.finance.domain.StudentWallet;
+import com.school.finance.domain.WalletLog;
 import com.school.finance.dto.student.StudentFinanceDTO;
 import com.school.finance.dto.student.StudentFinancePaymentDTO;
 import com.school.finance.mapper.StudentFinanceMapper;
 import com.school.finance.service.entity.StudentFinanceService;
 import com.school.finance.service.entity.StudentPaymentService;
+import com.school.finance.service.entity.StudentWalletService;
+import com.school.finance.service.entity.WalletLogService;
 import com.school.finance.service.produce.StudentFinanceProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +33,8 @@ public class PaymentServiceManager {
     private final StudentPaymentService studentPaymentService;
     private final StudentFinanceMapper studentFinanceMapper;
     private final StudentFinanceProducer studentFinanceProducer;
+    private final StudentWalletService studentWalletService ;
+    private final WalletLogService walletLogService ;
 
     @Transactional
     public StudentFinanceDTO payment(StudentFinancePaymentDTO paymentDTO) {
@@ -73,4 +81,25 @@ public class PaymentServiceManager {
         if(studentFinance.getIsPaid())
             studentFinanceProducer.produceToStudentNotificationPreQueue(studentFinance);
     }
+
+    @Transactional
+    public ChargeWalletResponse chargeWallet(ChargeWalletRequest request) {
+        log.debug("Request to charge the wallet : {}" , request);
+        Optional<StudentWallet> wallet = studentWalletService.getByStudentId(request.getStudentId()) ;
+        if(wallet.isEmpty())
+            throw Problem.valueOf(Status.NOT_FOUND , "The student hasn't any wallet !") ;
+
+        String walletId = wallet.get().getId() ;
+        BigDecimal amount = request.getAmount() ;
+        StudentWallet updatedWallet = studentWalletService.charge(walletId , amount) ;
+        WalletLog walletLog = walletLogService.logTransaction(walletId , amount) ;
+
+        ChargeWalletResponse response = new ChargeWalletResponse() ;
+        response.setWalletId(walletId);
+        response.setStudentId(request.getStudentId());
+        response.setTransactionId(walletLog.getId());
+        response.setCurrentBalance(updatedWallet.getBalance());
+        return response ;
+    }
+
 }

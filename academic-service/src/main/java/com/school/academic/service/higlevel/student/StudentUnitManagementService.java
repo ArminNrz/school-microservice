@@ -8,6 +8,8 @@ import com.school.academic.service.higlevel.student.handler.StudentFactorHandler
 import com.school.academic.service.higlevel.student.handler.StudentRegisterUnitHandler;
 import com.school.academic.service.higlevel.student.handler.StudentUnitDetailsHandler;
 import com.school.academic.service.higlevel.student.handler.StudentWalletHandler;
+import com.school.clients.finance.dto.ChargeWalletRequest;
+import com.school.clients.finance.dto.ChargeWalletResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.clients.finance.dto.StudentWalletResponse;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +45,10 @@ public class StudentUnitManagementService {
 
     public StudentWalletResponse createWallet(Long studentId) {
         return walletHandler.create(studentId) ;
+    }
+
+    public ChargeWalletResponse chargeWallet(ChargeWalletRequest request) {
+        return walletHandler.chargeWallet(request) ;
+
     }
 }

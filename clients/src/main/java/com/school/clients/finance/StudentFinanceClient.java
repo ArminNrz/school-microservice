@@ -24,4 +24,7 @@ public interface StudentFinanceClient {
     @PostMapping("/api/finance/students/{studentId}/create-wallet")
     StudentWalletResponse createWallet(@PathVariable("studentId") Long studentId) ;
 
+    @PostMapping("/api/finance/students/charge-wallet")
+    ChargeWalletResponse chargeWallet(@RequestBody ChargeWalletRequest request) ;
+
 }

@@ -4,6 +4,8 @@ package com.school.academic.service.higlevel.student.handler;
 import com.school.academic.domain.Student;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.thirdparty.FinanceClientService;
+import com.school.clients.finance.dto.ChargeWalletRequest;
+import com.school.clients.finance.dto.ChargeWalletResponse;
 import com.school.clients.finance.dto.StudentWalletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,4 +38,11 @@ public class StudentWalletHandler {
         return response ;
     }
 
+    @Transactional
+    public ChargeWalletResponse chargeWallet(ChargeWalletRequest request) {
+        log.debug("Request to charge the wallet : {}" , request);
+        if(studentService.findById(request.getStudentId()) == null)
+            throw Problem.valueOf(Status.NOT_FOUND , "The student not found with id") ;
+        return financeService.chargeWallet(request) ;
+    }
 }

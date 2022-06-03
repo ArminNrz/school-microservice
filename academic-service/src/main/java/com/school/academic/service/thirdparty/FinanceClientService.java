@@ -33,7 +33,11 @@ public class FinanceClientService {
 
     public StudentWalletResponse createWallet(Long studentId) {
         log.debug("try to send request to finance for creating wallet for student Id : {}" , studentId);
-        StudentWalletResponse response = studentFinanceClient.createWallet(studentId) ;
-        return response ;
+        return studentFinanceClient.createWallet(studentId) ;
+    }
+
+    public ChargeWalletResponse chargeWallet(ChargeWalletRequest request) {
+        log.debug("try to send request to finance for charging the wallet : {}" , request);
+        return studentFinanceClient.chargeWallet(request) ;
     }
 }

@@ -9,6 +9,8 @@ import com.school.academic.dto.unit.student.UnitStudentRegistrationDTO;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.higlevel.student.StudentUnitManagementService;
 import com.school.clients.academic.StudentDTO;
+import com.school.clients.finance.dto.ChargeWalletRequest;
+import com.school.clients.finance.dto.ChargeWalletResponse;
 import com.school.clients.finance.dto.StudentFinanceRegisterResponse;
 import com.school.clients.finance.dto.StudentWalletResponse;
 import lombok.RequiredArgsConstructor;
@@ -48,6 +50,12 @@ public class StudentController {
         log.info("Rest request to create wallet for student : {} " , studentId);
         StudentWalletResponse response = studentUnitManagementService.createWallet(studentId) ;
         return ResponseEntity.ok(response) ;
+    }
+
+    @PostMapping("/charge-wallet")
+    public ResponseEntity<ChargeWalletResponse> chargeWallet(@RequestBody ChargeWalletRequest request) {
+        log.info("Rest request to charge the wallet : {}" , request);
+        return ResponseEntity.ok(studentUnitManagementService.chargeWallet(request) ) ;
     }
 
     @PutMapping("/{id}/unit")
