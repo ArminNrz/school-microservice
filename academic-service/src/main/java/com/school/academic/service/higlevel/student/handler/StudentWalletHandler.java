@@ -3,6 +3,7 @@ package com.school.academic.service.higlevel.student.handler;
 
 import com.school.academic.domain.Student;
 import com.school.academic.service.entity.StudentService;
+import com.school.academic.service.jms.producer.StudentNotificationProducer;
 import com.school.academic.service.thirdparty.FinanceClientService;
 import com.school.clients.finance.dto.ChargeWalletRequest;
 import com.school.clients.finance.dto.ChargeWalletResponse;
@@ -22,6 +23,7 @@ import javax.transaction.Transactional;
 public class StudentWalletHandler {
     private final FinanceClientService financeService;
     private final StudentService studentService ;
+    private final StudentNotificationProducer studentNotificationProducer;
 
     @Transactional
     public StudentWalletResponse create(Long studentId) {
@@ -43,6 +45,8 @@ public class StudentWalletHandler {
         log.debug("Request to charge the wallet : {}" , request);
         if(studentService.findById(request.getStudentId()) == null)
             throw Problem.valueOf(Status.NOT_FOUND , "The student not found with id") ;
-        return financeService.chargeWallet(request) ;
+        ChargeWalletResponse response = financeService.chargeWallet(request) ;
+        studentNotificationProducer.produceTransactionNotification(request.getAmount() , response);
+        return response ;
     }
 }

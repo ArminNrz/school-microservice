@@ -20,11 +20,22 @@ public class RabbitConfig {
     @Value("${rabbitMQ.queues.student-notification-pre}")
     private String studentNotificationPreQueue;
 
+    @Value("${rabbitMQ.queues.student-notification-trans}")
+    private String studentNotificationTransQueue ;
+
+    @Value("${rabbitmq.routing-keys.internal-student-notification-trans}")
+    private String internalStudentNotificationTransRoutingKey ;
+
     @Value("${rabbitmq.routing-keys.internal-student-notification}")
     private String internalStudentNotificationRoutingKey;
 
     @Value("${rabbitMQ.routing-keys.internal-student-notification-pre}")
     private String internalStudentNotificationPreRoutingKey;
+
+
+
+
+
 
     @Bean
     public TopicExchange internalTopicExchange() {
@@ -42,6 +53,9 @@ public class RabbitConfig {
     }
 
     @Bean
+    public Queue studentNotificationTrans() { return new Queue(this.studentNotificationTransQueue) ;}
+
+    @Bean
     public Binding internalToStudentNotificationBinding() {
         return BindingBuilder
                 .bind(studentNotificationQueue())
@@ -56,4 +70,13 @@ public class RabbitConfig {
                 .to(internalTopicExchange())
                 .with(this.internalStudentNotificationPreRoutingKey);
     }
+
+    @Bean
+    public Binding internalToStudentNotificationTransBinding() {
+        return BindingBuilder
+                .bind(studentNotificationTrans())
+                .to(internalTopicExchange())
+                .with(this.internalStudentNotificationTransRoutingKey);
+    }
+
 }

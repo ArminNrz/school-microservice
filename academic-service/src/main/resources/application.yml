@@ -27,9 +27,11 @@ rabbitMQ:
   queues:
     student-notification: student.notification.queue
     student-notification-pre: student.notification.pre.queue
+    student-notification-trans : student.notification.trans.queue
   routing-keys:
     internal-student-notification: internal.student.notification.routing-key
     internal-student-notification-pre: internal.student.notification.pre.routing-key
+    internal-student-notification-trans : internal.student.notification.trans.routing-key
 
 logging:
   level:
