@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
 
 spring:
   web:
@@ -20,6 +20,11 @@ spring:
     addresses: ${RABBIT_ADDRESS}
   application:
     name: academic-service
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/school
 
 rabbitMQ:
   exchanges:

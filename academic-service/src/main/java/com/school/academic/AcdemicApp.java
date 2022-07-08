@@ -9,7 +9,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
         scanBasePackages = {
                 "com.school.academic",
                 "com.school.baseLayer",
-                "com.school.amqp"
+                "com.school.amqp",
+                "com.school.security"
         }
 )
 @EnableFeignClients(
