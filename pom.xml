@@ -14,6 +14,7 @@
         <module>clients</module>
         <module>amqp</module>
         <module>notification-service</module>
+        <module>common-security</module>
     </modules>
     <name>school-microservice</name>
 

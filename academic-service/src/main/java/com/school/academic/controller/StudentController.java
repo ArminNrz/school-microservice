@@ -19,6 +19,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,6 +36,7 @@ public class StudentController {
     private final StudentService service;
     private final StudentUnitManagementService studentUnitManagementService;
 
+    @Secured("ROLE_admin")
     @PostMapping
     public ResponseEntity<StudentDTO> create(@Valid @RequestBody StudentCreateDTO createDTO) {
         log.info("REST request to create Student: {}", createDTO);
@@ -41,6 +44,7 @@ public class StudentController {
         return ResponseEntity.created(URI.create("/api/academic/students")).body(result);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_user', 'ROLE_admin')")
     @PutMapping("/{id}/unit")
     public ResponseEntity<UnitStudentDTO> register(
             @PathVariable("id") Long studentId,
@@ -50,12 +54,14 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_user', 'ROLE_admin')")
     @GetMapping("/{nationalCode}")
     public ResponseEntity<StudentDetailsDTO> getDetailsByNationalCode(@PathVariable("nationalCode") Long nationalCode) {
         log.info("REST request to get student: {}, details", nationalCode);
         return ResponseEntity.ok(studentUnitManagementService.getDetailsByNationalCode(nationalCode));
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_admin')")
     @PutMapping("/{id}/end-register")
     public ResponseEntity<StudentFinanceRegisterResponse> endRegisteration(@PathVariable(name = "id") Long id) {
         log.info("REST request to end register for Student: {}", id);
@@ -63,6 +69,7 @@ public class StudentController {
         return ResponseEntity.ok(result);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_user', 'ROLE_admin')")
     @GetMapping("{nationalCode}/get-factor")
     public ResponseEntity<StudentFactorDTO> getFactor (@PathVariable("nationalCode") Long nationalCode) {
         log.info("Rest Request to get factor by nationalCode: {}" , nationalCode);
@@ -70,6 +77,7 @@ public class StudentController {
         return ResponseEntity.ok(factor) ;
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_user', 'ROLE_admin')")
     @GetMapping
     public ResponseEntity<List<StudentDTO>> getByAccessRegister(
             @Spec(path = "accessUnitRegistration", spec = Equal.class) Specification<Student> studentSpecification,

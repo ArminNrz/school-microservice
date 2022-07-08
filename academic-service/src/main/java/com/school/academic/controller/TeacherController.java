@@ -11,6 +11,7 @@ import com.school.academic.service.higlevel.teacher.TeacherUnitManagementService
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ public class TeacherController {
     private final UnitService unitService;
     private final TeacherUnitManagementService teacherUnitManagementService;
 
+    @PreAuthorize("hasAnyAuthority('ROLE_admin')")
     @PostMapping
     public ResponseEntity<TeacherDTO> create(@Valid @RequestBody TeacherCreateDTO createDTO) {
         log.info("REST request to create Teacher: {}", createDTO);
@@ -35,6 +37,7 @@ public class TeacherController {
 
     //todo: update teacher (name)
 
+    @PreAuthorize("hasAnyAuthority('ROLE_admin')")
     @PutMapping("/{id}/unit")
     public ResponseEntity<UnitTeacherDTO> registerUnit(
             @PathVariable("id") Long teacherId,
@@ -46,6 +49,7 @@ public class TeacherController {
     }
 
     //todo: get unit of a teacher
+    @PreAuthorize("hasAnyAuthority('ROLE_user', 'ROLE_admin')")
     @GetMapping("/{nationalCode}")
     public  ResponseEntity<TeacherDetailsDTO> getDetailsByNationalCode(@PathVariable(name ="nationalCode")Long nationalCode){
         log.info("REST request to get teacher: {}, details", nationalCode);
