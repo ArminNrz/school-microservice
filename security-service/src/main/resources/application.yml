@@ -10,3 +10,13 @@ spring:
       resource-server:
         jwt:
           issuer-uri: http://localhost:8080/auth/realms/school
+
+app:
+  academic-client-secret: O7bMXOin8jhap1Xbfyie1WODB25TWcQs
+  finance-client-secret: p8B454AK1s8IvfZvMYTtf3T6o8rC8RFO
+
+logging:
+  level:
+    com:
+      school:
+        finance: debug
