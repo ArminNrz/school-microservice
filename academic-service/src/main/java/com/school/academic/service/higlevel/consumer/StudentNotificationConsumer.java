@@ -1,4 +1,4 @@
-package com.school.academic.service.jms.consumer;
+package com.school.academic.service.higlevel.consumer;
 
 import com.school.academic.service.higlevel.student.StudentNotificationManager;
 import com.school.amqp.dto.student.StudentPaymentNotificationDTO;

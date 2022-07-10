@@ -14,6 +14,11 @@ spring:
       database: ${FINANCE_DB}
       username: ${FINANCE_DB_USER}
       password: ${FINANCE_DB_PASS}
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/school
 
 rabbitMQ:
   exchanges:

@@ -2,7 +2,7 @@ package com.school.academic.service.higlevel.student;
 
 import com.school.academic.domain.Student;
 import com.school.academic.service.entity.StudentService;
-import com.school.academic.service.jms.producer.StudentNotificationProducer;
+import com.school.academic.service.lowlevel.producer.StudentNotificationProducer;
 import com.school.amqp.dto.student.StudentPaymentNotificationDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

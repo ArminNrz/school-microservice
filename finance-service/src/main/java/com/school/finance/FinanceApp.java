@@ -8,7 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
         scanBasePackages = {
                 "com.school.finance",
                 "com.school.baseLayer",
-                "com.school.amqp"
+                "com.school.amqp",
+                "com.school.security"
         }
 )
 @EnableFeignClients(
