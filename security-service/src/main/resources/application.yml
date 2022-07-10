@@ -1,0 +1,12 @@
+server:
+  port: 9093
+
+spring:
+  web:
+    resources:
+      add-mappings: false
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8080/auth/realms/school
