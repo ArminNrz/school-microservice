@@ -1,4 +1,4 @@
-package com.school.academic.service.jms.producer;
+package com.school.academic.service.lowlevel.producer;
 
 import com.school.academic.domain.Student;
 import com.school.academic.mapper.StudentMapper;

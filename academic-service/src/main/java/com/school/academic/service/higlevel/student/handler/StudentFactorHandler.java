@@ -7,7 +7,7 @@ import com.school.academic.dto.unit.student.UnitStudentDetail;
 import com.school.academic.mapper.StudentMapper;
 import com.school.academic.service.entity.StudentService;
 import com.school.academic.service.entity.UnitStudentService;
-import com.school.academic.service.thirdparty.FinanceClientService;
+import com.school.academic.service.lowlevel.thirdparty.FinanceClientService;
 import com.school.clients.finance.dto.StudentFactorResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

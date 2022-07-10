@@ -36,6 +36,12 @@ rabbitMQ:
     internal-student-notification: internal.student.notification.routing-key
     internal-student-notification-pre: internal.student.notification.pre.routing-key
 
+# USER
+app:
+  keycloak:
+    username: admin-school
+    password: 123456
+
 logging:
   level:
     com:
